@@ -142,21 +142,30 @@ State Machine Function Definitions
 /* Wait for a message to be queued */
 static void UserAppSM_Idle(void)
 {
-  static u8 u8PositionOfTheMloeWillBe[]={0,6,13,19,19,13,6,0};
+  static u8 u8PositionOfTheMloeWillBe[]={0,6,13,19,19,13,6,0,
+  13,19,6,0,13,13,13,19,
+  19,0,0,6,19,13,0,6,19,
+  13,19,19,19,19,13,13,0,
+  13,19,19,0,0,6,6,6,
+  0,0,6,6,0,6,13,19,6,
+  0,0,6,13,13,13,19,6,
+  0,19,13,13,6,6,13,13};
   static u8 *u8PointToPositionOfTheMloeWillBe=u8PositionOfTheMloeWillBe;
   static u8 u8CountForBit = 0;
   static u8 u8ClockDownForBegin[]="5";
   static u32 u32ClockDownForGame=0;
   static u16 u16ClockDownForBeginning=0;
   static u8 u8count=0;
+  static u8 u8clockdown[]="10";
   static bool flag = 0;
   u16ClockDownForBeginning++;
   u8count++;
+  u32ClockDownForGame++;
   //The message watting for player
   //LCDMesage(LINE1_START_ADDR, "Watting for player..");
   
   //Clock Down For The Game 
-  if(u16ClockDownForBeginning<8000 && u16ClockDownForBeginning % 1000 == 0)
+  if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||u16ClockDownForBeginning == 2000 ||u16ClockDownForBeginning == 3000 ||u16ClockDownForBeginning == 4000 ||u16ClockDownForBeginning == 5000 ||u16ClockDownForBeginning == 6000 ||u16ClockDownForBeginning == 7000 ))
   {
     LCDMessage(LINE1_START_ADDR, "Clock Down:");
     LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
@@ -165,9 +174,12 @@ static void UserAppSM_Idle(void)
     if(u8ClockDownForBegin[0] < '/')
     {
       flag = 1;
-      u16ClockDownForBeginning = 0;
+      u32ClockDownForGame=0;
       LCDCommand(LCD_CLEAR_CMD);
-      LCDMessage(LINE1_START_ADDR, "Player1   Player2");
+      LCDMessage(LINE1_START_ADDR, "Player1      Player2");
+      LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+      u8clockdown[0]='0';
+      u8clockdown[1]='9';
     }
   }
   
@@ -183,7 +195,7 @@ static void UserAppSM_Idle(void)
        {
          u8CountForBit++;
        }
-       LCDCommand(LCD_CLEAR_CMD);
+       LCDClearChars(LINE2_START_ADDR,20);
        u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON1))
@@ -193,7 +205,7 @@ static void UserAppSM_Idle(void)
        {
          u8CountForBit++;
        }
-       LCDCommand(LCD_CLEAR_CMD);
+       LCDClearChars(LINE2_START_ADDR,20);
        u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON2))
@@ -203,7 +215,7 @@ static void UserAppSM_Idle(void)
        {
          u8CountForBit++;
        }
-       LCDCommand(LCD_CLEAR_CMD);
+       LCDClearChars(LINE2_START_ADDR,20);
        u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON3))
@@ -213,13 +225,67 @@ static void UserAppSM_Idle(void)
        {
          u8CountForBit++;
        }
-       LCDCommand(LCD_CLEAR_CMD);
+       LCDClearChars(LINE2_START_ADDR,20);
        u8PointToPositionOfTheMloeWillBe++;
     }
     
   }
   
-  
+  //Game Clock Down
+  if(flag == 1)
+  {
+    switch(u32ClockDownForGame)
+    {
+    case 1000:
+    LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 2000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 3000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 4000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 5000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 6000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 7000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 8000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 9000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    case 10000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    u8clockdown[1]=u8clockdown[1]-1;
+    break;
+    
+    default:break;
+    }
+    
+  }
+  //Game End
+  if(u32ClockDownForGame == 100000)
+  {
+    flag = 0;
+  }
 
 } /* end UserAppSM_Idle() */
      

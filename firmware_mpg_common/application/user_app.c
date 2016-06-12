@@ -142,75 +142,85 @@ State Machine Function Definitions
 /* Wait for a message to be queued */
 static void UserAppSM_Idle(void)
 {
-  static u8 PositionOfTheMloeWillBe[]={0,6,13,19,19,13,6,0};
-  static u8 *PointToPositionOfTheMloeWillBe=PositionOfTheMloeWillBe;
-  static u8 CountForBit = 0;
-  static u8 ClockDownForBegin[]="5";
-  static u32 ClockDownForGame=0;
-  static u16 ClockDownForBeginning=0;
+  static u8 u8PositionOfTheMloeWillBe[]={0,6,13,19,19,13,6,0};
+  static u8 *u8PointToPositionOfTheMloeWillBe=u8PositionOfTheMloeWillBe;
+  static u8 u8CountForBit = 0;
+  static u8 u8ClockDownForBegin[]="5";
+  static u32 u32ClockDownForGame=0;
+  static u16 u16ClockDownForBeginning=0;
+  static u8 u8count=0;
   static bool flag = 0;
-  ClockDownForBeginning++;
+  u16ClockDownForBeginning++;
+  u8count++;
   //The message watting for player
   //LCDMesage(LINE1_START_ADDR, "Watting for player..");
   
   //Clock Down For The Game 
-  if(ClockDownForBeginning<7000 && ClockDownForBeginning % 1000 == 0)
+  if(u16ClockDownForBeginning<8000 && u16ClockDownForBeginning % 1000 == 0)
   {
     LCDMessage(LINE1_START_ADDR, "Clock Down:");
-    LCDMessage(LINE1_START_ADDR+12, ClockDownForBegin);
+    LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
     LCDMessage(LINE1_START_ADDR+13, "s");
-    ClockDownForBegin[0]--;
-    if(ClockDownForBegin[0] < '0')
+    u8ClockDownForBegin[0]--;
+    if(u8ClockDownForBegin[0] < '/')
     {
       flag = 1;
+      u16ClockDownForBeginning = 0;
+      LCDCommand(LCD_CLEAR_CMD);
+      LCDMessage(LINE1_START_ADDR, "Player1   Player2");
     }
   }
   
   //Game Start
-  if(flag == 1)
+  if(flag == 1&&u8count == 150)
   {
-    LCDCommand(LCD_CLEAR_CMD);
-    LCDMessage(LINE1_START_ADDR, "play1     play2");
-    LCDMessage(LINE2_START_ADDR+*PointToPositionOfTheMloeWillBe, "M");
+    u8count = 0;
+    LCDMessage(LINE2_START_ADDR+*u8PointToPositionOfTheMloeWillBe, "M");
     if(WasButtonPressed(BUTTON0))
     {
        ButtonAcknowledge(BUTTON0);
-       if(*PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 0)
        {
-         CountForBit++;
+         u8CountForBit++;
        }
-       PointToPositionOfTheMloeWillBe++;
+       LCDCommand(LCD_CLEAR_CMD);
+       u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON1))
     {
        ButtonAcknowledge(BUTTON1);
-       if(*PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 0)
        {
-         CountForBit++;
+         u8CountForBit++;
        }
-       PointToPositionOfTheMloeWillBe++;
+       LCDCommand(LCD_CLEAR_CMD);
+       u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON2))
     {
        ButtonAcknowledge(BUTTON2);
-       if(*PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 0)
        {
-         CountForBit++;
+         u8CountForBit++;
        }
-       PointToPositionOfTheMloeWillBe++;
+       LCDCommand(LCD_CLEAR_CMD);
+       u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON3))
     {
        ButtonAcknowledge(BUTTON3);
-       if(*PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 0)
        {
-         CountForBit++;
+         u8CountForBit++;
        }
-       PointToPositionOfTheMloeWillBe++;
+       LCDCommand(LCD_CLEAR_CMD);
+       u8PointToPositionOfTheMloeWillBe++;
     }
     
   }
-    
+  
+  
+
 } /* end UserAppSM_Idle() */
      
 

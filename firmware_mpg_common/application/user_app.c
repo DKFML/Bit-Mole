@@ -158,15 +158,17 @@ static void UserAppSM_Idle(void)
   static u8 u8count=0;
   static u8 u8clockdown[]="10";
   static bool flag = 0;
+  static bool flag0 = 0;
   u16ClockDownForBeginning++;
   u8count++;
   u32ClockDownForGame++;
   //The message watting for player
   //LCDMesage(LINE1_START_ADDR, "Watting for player..");
   
-  //Clock Down For The Game 
+  //Clock Down For Beginning 
   if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||u16ClockDownForBeginning == 2000 ||u16ClockDownForBeginning == 3000 ||u16ClockDownForBeginning == 4000 ||u16ClockDownForBeginning == 5000 ||u16ClockDownForBeginning == 6000 ||u16ClockDownForBeginning == 7000 ))
   {
+    LCDClearChars(LINE1_START_ADDR, 20);
     LCDMessage(LINE1_START_ADDR, "Clock Down:");
     LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
     LCDMessage(LINE1_START_ADDR+13, "s");
@@ -176,17 +178,28 @@ static void UserAppSM_Idle(void)
       flag = 1;
       u32ClockDownForGame=0;
       LCDCommand(LCD_CLEAR_CMD);
-      LCDMessage(LINE1_START_ADDR, "Player1      Player2");
-      LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+      LCDMessage(LINE1_START_ADDR, "Player1 T:");
+      LCDMessage(LINE1_START_ADDR+11,u8clockdown);
       u8clockdown[0]='0';
       u8clockdown[1]='9';
     }
   }
   
   //Game Start
-  if(flag == 1&&u8count == 150)
+  if(flag == 1&&u8count == 200)
   {
     u8count = 0;
+    LedOff(GREEN);
+    LedOff(RED);
+    if(!flag0)
+    {
+      flag0=1;
+      ButtonAcknowledge(BUTTON0);
+      ButtonAcknowledge(BUTTON1);
+      ButtonAcknowledge(BUTTON2);
+      ButtonAcknowledge(BUTTON3);
+    }
+    LCDClearChars(LINE2_START_ADDR, 20);
     LCDMessage(LINE2_START_ADDR+*u8PointToPositionOfTheMloeWillBe, "M");
     if(WasButtonPressed(BUTTON0))
     {
@@ -194,38 +207,62 @@ static void UserAppSM_Idle(void)
        if(*u8PointToPositionOfTheMloeWillBe == 0)
        {
          u8CountForBit++;
+         LedOn(GREEN);
+       }
+       else
+       {
+         LedOn(RED);
        }
        LCDClearChars(LINE2_START_ADDR,20);
+       
        u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON1))
     {
        ButtonAcknowledge(BUTTON1);
-       if(*u8PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 6)
        {
          u8CountForBit++;
+         LedOn(GREEN);
+       }
+       else
+       {
+         LedOn(RED);
        }
        LCDClearChars(LINE2_START_ADDR,20);
+       
        u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON2))
     {
        ButtonAcknowledge(BUTTON2);
-       if(*u8PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 13)
        {
          u8CountForBit++;
+         LedOn(GREEN);
+       }
+       else
+       {
+         LedOn(RED);
        }
        LCDClearChars(LINE2_START_ADDR,20);
+       
        u8PointToPositionOfTheMloeWillBe++;
     }
     if(WasButtonPressed(BUTTON3))
     {
        ButtonAcknowledge(BUTTON3);
-       if(*u8PointToPositionOfTheMloeWillBe == 0)
+       if(*u8PointToPositionOfTheMloeWillBe == 19)
        {
          u8CountForBit++;
+         LedOn(GREEN);
+       }
+       else
+       {
+         LedOn(RED);
        }
        LCDClearChars(LINE2_START_ADDR,20);
+       
        u8PointToPositionOfTheMloeWillBe++;
     }
     
@@ -237,44 +274,43 @@ static void UserAppSM_Idle(void)
     switch(u32ClockDownForGame)
     {
     case 1000:
-    LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 2000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 2000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 3000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 3000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 4000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 4000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 5000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 5000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 6000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 6000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 7000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 7000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 8000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 8000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 9000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
+    case 9000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 10000:LCDMessage(LINE1_START_ADDR+9,u8clockdown);
-    u8clockdown[1]=u8clockdown[1]-1;
+    case 10000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
     break;
     
     default:break;
@@ -282,10 +318,31 @@ static void UserAppSM_Idle(void)
     
   }
   //Game End
-  if(u32ClockDownForGame == 100000)
+  if(u32ClockDownForGame == 10000)
   {
     flag = 0;
+    LCDCommand(LCD_CLEAR_CMD);
+    LCDMessage(LINE1_START_ADDR, "TIME OUT!");
+    LedOff(GREEN);
+    LedOff(RED);
+    LCDMessage(LINE2_START_ADDR, "Press B0 Again ");
+    
   }
+  if(WasButtonPressed(BUTTON0)&&flag==0)
+    {
+      ButtonAcknowledge(BUTTON0);
+      LCDCommand(LCD_CLEAR_CMD);
+      u8PointToPositionOfTheMloeWillBe=u8PositionOfTheMloeWillBe;
+      u8CountForBit = 0;
+      u8ClockDownForBegin[0]='5';
+      u32ClockDownForGame=0;
+      u16ClockDownForBeginning=0;
+      u8count=0;
+      u8clockdown[0]='1';
+      u8clockdown[1]='0';
+    }
+  //Contact to another player by ANT if the game is beginning
+  
 
 } /* end UserAppSM_Idle() */
      

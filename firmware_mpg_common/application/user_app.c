@@ -159,6 +159,7 @@ static void UserAppSM_Idle(void)
   static u8 u8clockdown[]="10";
   static bool flag = 0;
   static bool flag0 = 0;
+  static u8 u8ReceiveFromAnother[8];
   u16ClockDownForBeginning++;
   u8count++;
   u32ClockDownForGame++;
@@ -271,6 +272,7 @@ static void UserAppSM_Idle(void)
   //Game Clock Down
   if(flag == 1)
   {
+    AntToAnotherRunActiveState();
     switch(u32ClockDownForGame)
     {
     case 1000:
@@ -342,7 +344,7 @@ static void UserAppSM_Idle(void)
       u8clockdown[1]='0';
     }
   //Contact to another player by ANT if the game is beginning
-  
+
 
 } /* end UserAppSM_Idle() */
      

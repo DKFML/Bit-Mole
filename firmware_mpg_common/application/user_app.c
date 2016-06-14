@@ -42,7 +42,7 @@ All Global variable names shall start with "G_"
 ***********************************************************************************************************************/
 /* New variables */
 volatile u32 G_u32UserAppFlags;                       /* Global state flags */
-
+extern u8 G_u8SendNumber;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
@@ -51,6 +51,7 @@ extern volatile u32 G_u32ApplicationFlags;             /* From main.c */
 
 extern volatile u32 G_u32SystemTime1ms;                /* From board-specific source file */
 extern volatile u32 G_u32SystemTime1s;                 /* From board-specific source file */
+
 
 
 /***********************************************************************************************************************
@@ -272,7 +273,7 @@ static void UserAppSM_Idle(void)
   //Game Clock Down
   if(flag == 1)
   {
-    AntToAnotherRunActiveState();
+    
     switch(u32ClockDownForGame)
     {
     case 1000:
@@ -328,6 +329,17 @@ static void UserAppSM_Idle(void)
     LedOff(GREEN);
     LedOff(RED);
     LCDMessage(LINE2_START_ADDR, "Press B0 Again ");
+    G_u8SendNumber = u8CountForBit;
+    if(G_u8SendNumber==0)
+    {
+      G_u8SendNumber=1;
+      DebugPrintNumber(G_u8SendNumber);
+    }
+    else
+    {
+      DebugPrintNumber(G_u8SendNumber);
+    }
+    AntToAnotherRunActiveState();
     
   }
   if(WasButtonPressed(BUTTON0)&&flag==0)

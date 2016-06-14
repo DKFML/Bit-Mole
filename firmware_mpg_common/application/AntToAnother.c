@@ -42,7 +42,7 @@ All Global variable names shall start with "G_"
 ***********************************************************************************************************************/
 /* New variables */
 volatile u32 G_u32AntToAnotherFlags;                       /* Global state flags */
-
+u8 G_u8SendNumber;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
@@ -58,6 +58,7 @@ extern volatile u32 G_u32ApplicationFlags;             /* From main.c */
 extern volatile u32 G_u32SystemTime1ms;                /* From board-specific source file */
 extern volatile u32 G_u32SystemTime1s;                 /* From board-specific source file */
 
+extern volatile u8 *G_ReceiveFromAnother=0;
 
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -155,10 +156,10 @@ State Machine Function Definitions
 /* Wait for a message to be queued */
 static void AntToAnotherSM_Idle(void)
 {
-  static u8 au8SendMessage[8]={1,2,3,4,5,6,7,8};
+  u8 au8TestMessage[] = {1,1,1,1,1,1,1,1};
   u8 au8DataContent[] = "xxxxxxxxxxxxxxxx";
   //LedOn(WHITE);
-
+  LedOn(PURPLE);
   if( AntReadData() )
   {
      /* New data message: check what it is */
@@ -173,23 +174,17 @@ static void AntToAnotherSM_Idle(void)
 
 #ifdef MPG1
       DebugPrintf(au8DataContent);
+      G_ReceiveFromAnother=au8DataContent;
 #endif /* MPG1 */
 
     }
     else if(G_eAntApiCurrentMessageClass == ANT_TICK)
     {
-     /* Update and queue the new message data */
-      au8SendMessage[7]++;
-      if(au8SendMessage[7] == 0)
-      {
-        au8SendMessage[6]++;
-        if(au8SendMessage[6] == 0)
-        {
-          au8SendMessage[5]++;
-        }
-      }
+     
       //LedOn(PURPLE);
-      AntQueueBroadcastMessage(au8SendMessage);
+      LedOn(WHITE);
+      au8TestMessage[0]=G_u8SendNumber;
+      AntQueueBroadcastMessage(au8TestMessage);
     }
   } /* end AntReadData() */
   

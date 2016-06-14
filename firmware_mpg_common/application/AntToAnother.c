@@ -44,6 +44,7 @@ All Global variable names shall start with "G_"
 volatile u32 G_u32AntToAnotherFlags;                       /* Global state flags */
 u8 G_u8SendNumber;
 u8 G_u8ReceiveNumber;
+bool G_flag;
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
 extern AntSetupDataType G_stAntSetupData;                         /* From ant.c */
@@ -174,7 +175,9 @@ static void AntToAnotherSM_Idle(void)
 #ifdef MPG1
       au8DataContent[17]='\0';
       DebugPrintf(au8DataContent);
-      //G_u8ReceiveNumber=au8DataContent[1]-48;
+      G_u8ReceiveNumber=au8DataContent[1];
+      
+      
 #endif /* MPG1 */
 
     }
@@ -182,9 +185,12 @@ static void AntToAnotherSM_Idle(void)
     {
      
       //LedOn(PURPLE);
-      LedOn(WHITE);
-      au8TestMessage[0]=G_u8SendNumber;
-      AntQueueBroadcastMessage(au8TestMessage);
+      if(G_flag==1)
+      {
+        LedOn(WHITE);
+        au8TestMessage[0]=G_u8SendNumber;
+        AntQueueBroadcastMessage(au8TestMessage);
+      }
     }
   } /* end AntReadData() */
   

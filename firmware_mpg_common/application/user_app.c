@@ -44,6 +44,7 @@ All Global variable names shall start with "G_"
 volatile u32 G_u32UserAppFlags;                       /* Global state flags */
 extern u8 G_u8SendNumber;
 extern u8 G_u8ReceiveNumber;
+extern bool G_flag;
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
 extern volatile u32 G_u32SystemFlags;                  /* From main.c */
@@ -105,7 +106,7 @@ void UserAppInitialize(void)
     /* The task isn't properly initialized, so shut it down and don't run */
     UserApp_StateMachine = UserAppSM_FailedInit;
   }
-
+  G_flag=0;
 } /* end UserAppInitialize() */
 
 
@@ -126,12 +127,14 @@ Promises:
 void UserAppRunActiveState(void)
 {
   static bool flag =0;
+  AntToAnotherRunActiveState();
   UserApp_StateMachine();
-  if(&&flag==0)
+  if(G_u8ReceiveNumber=='A'&&flag==0)
   {
     ButtonAcknowledge(BUTTON3);
     UserApp_StateMachine = UserAppSM_Idle;
     flag=1;
+    G_flag=1;
   }
   
 
@@ -196,7 +199,7 @@ static void UserAppSM_Idle(void)
   //LCDMesage(LINE1_START_ADDR, "Watting for player..");
   
   //Open the ANT and waiting for player
-  AntToAnotherRunActiveState();
+  
   //Clock Down For Beginning 
   if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||u16ClockDownForBeginning == 2000 ||u16ClockDownForBeginning == 3000 ||u16ClockDownForBeginning == 4000 ||u16ClockDownForBeginning == 5000 ||u16ClockDownForBeginning == 6000 ||u16ClockDownForBeginning == 7000 ))
   {

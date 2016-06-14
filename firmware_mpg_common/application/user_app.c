@@ -127,7 +127,7 @@ void UserAppRunActiveState(void)
 {
   static bool flag =0;
   UserApp_StateMachine();
-  if(WasButtonPressed(BUTTON3)&&flag==0)
+  if(&&flag==0)
   {
     ButtonAcknowledge(BUTTON3);
     UserApp_StateMachine = UserAppSM_Idle;

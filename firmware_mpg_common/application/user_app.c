@@ -90,7 +90,7 @@ Promises:
 void UserAppInitialize(void)
 {
   //Clear and message
-  u8 au8WelcomeMessage[]="Bit Mloe !";
+  u8 au8WelcomeMessage[]="Beat Mole !";
   //u8 au8Hint[]="Press B0 to start";
   LCDCommand(LCD_CLEAR_CMD);
   LCDMessage(LINE1_START_ADDR, au8WelcomeMessage);
@@ -98,7 +98,7 @@ void UserAppInitialize(void)
   /* If good initialization, set state to Idle */
   if( 1 )
   {
-    UserApp_StateMachine = UserAppSM_Idle;
+    UserApp_StateMachine = UserAppSM_NULL;
   }
   else
   {
@@ -125,7 +125,15 @@ Promises:
 */
 void UserAppRunActiveState(void)
 {
+  static bool flag =0;
   UserApp_StateMachine();
+  if(WasButtonPressed(BUTTON3)&&flag==0)
+  {
+    ButtonAcknowledge(BUTTON3);
+    UserApp_StateMachine = UserAppSM_Idle;
+    flag=1;
+  }
+  
 
 } /* end UserAppRunActiveState */
 
@@ -133,7 +141,26 @@ void UserAppRunActiveState(void)
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Private functions                                                                                                  */
 /*--------------------------------------------------------------------------------------------------------------------*/
-
+static void UserAppSM_NULL(void)
+{
+  static u16 u16Count=0;
+  static bool flag=1;
+  u16Count++;
+  if(u16Count == 500)
+  {
+    u16Count=0;
+    flag=!flag;
+    LCDClearChars(LINE2_START_ADDR, 20);
+    if(flag == 1)
+    {
+      LCDMessage(LINE1_START_ADDR, "WAITING FOR PLAYER..");
+    }
+    else
+    {
+      LCDMessage(LINE1_START_ADDR, "WAITING FOR PLAYER. ");
+    }
+  }
+}
 
 /**********************************************************************************************************************
 State Machine Function Definitions
@@ -161,12 +188,15 @@ static void UserAppSM_Idle(void)
   static bool flag = 0;
   static bool flag0 = 0;
   static u8 u8ReceiveFromAnother[8];
+  static u8 u8tempfordisplay[3];
   u16ClockDownForBeginning++;
   u8count++;
   u32ClockDownForGame++;
   //The message watting for player
   //LCDMesage(LINE1_START_ADDR, "Watting for player..");
   
+  //Open the ANT and waiting for player
+  AntToAnotherRunActiveState();
   //Clock Down For Beginning 
   if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||u16ClockDownForBeginning == 2000 ||u16ClockDownForBeginning == 3000 ||u16ClockDownForBeginning == 4000 ||u16ClockDownForBeginning == 5000 ||u16ClockDownForBeginning == 6000 ||u16ClockDownForBeginning == 7000 ))
   {
@@ -181,7 +211,7 @@ static void UserAppSM_Idle(void)
       u32ClockDownForGame=0;
       LCDCommand(LCD_CLEAR_CMD);
       LCDMessage(LINE1_START_ADDR, "Player1 T:");
-      LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+      LCDMessage(LINE1_START_ADDR+10,u8clockdown);
       u8clockdown[0]='0';
       u8clockdown[1]='9';
     }
@@ -268,6 +298,13 @@ static void UserAppSM_Idle(void)
        u8PointToPositionOfTheMloeWillBe++;
     }
     
+    
+    G_u8SendNumber = u8CountForBit;
+    NumberToAscii(u8CountForBit,u8tempfordisplay);
+    LCDClearChars(LINE1_START_ADDR+19,2);
+    LCDMessage(LINE1_START_ADDR+14,"Num:");
+    LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
+    
   }
   
   //Game Clock Down
@@ -276,44 +313,53 @@ static void UserAppSM_Idle(void)
     
     switch(u32ClockDownForGame)
     {
-    case 1000:
-    LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 1000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 2000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 2000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 3000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 3000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 4000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 4000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 5000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 5000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 6000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 6000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 7000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 7000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 8000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 8000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 9000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 9000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     u8clockdown[1]=u8clockdown[1]-1;
     break;
     
-    case 10000:LCDMessage(LINE1_START_ADDR+11,u8clockdown);
+    case 10000:LCDClearChars(LINE1_START_ADDR+10,4);
+    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
     break;
     
     default:break;
@@ -328,7 +374,6 @@ static void UserAppSM_Idle(void)
     LCDMessage(LINE1_START_ADDR, "TIME OUT!");
     LedOff(GREEN);
     LedOff(RED);
-    LCDMessage(LINE2_START_ADDR, "Press B0 Again ");
     G_u8SendNumber = u8CountForBit;
     if(G_u8SendNumber==0)
     {
@@ -341,7 +386,7 @@ static void UserAppSM_Idle(void)
     }
     AntToAnotherRunActiveState();
   }
-  if(u32ClockDownForGame == 11000)
+  if(u32ClockDownForGame == 12000)
   {
     if(G_u8SendNumber < G_u8ReceiveNumber)
     {
@@ -356,6 +401,7 @@ static void UserAppSM_Idle(void)
     {
       LCDMessage(LINE1_START_ADDR, "Draw");
     }
+    LCDMessage(LINE2_START_ADDR, "Press B0 Again ");
   }
   if(WasButtonPressed(BUTTON0)&&flag==0)
     {

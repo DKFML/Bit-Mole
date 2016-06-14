@@ -156,7 +156,7 @@ State Machine Function Definitions
 static void AntToAnotherSM_Idle(void)
 {
   u8 au8TestMessage[] = {1,1,1,1,1,1,1,1};
-  u8 au8DataContent[] = "xxxxxxxxxxxxxxxx";
+  u8 au8DataContent[17] = "xxxxxxxxxxxxxxxx";
   //LedOn(WHITE);
   LedOn(PURPLE);
   if( AntReadData() )
@@ -172,8 +172,9 @@ static void AntToAnotherSM_Idle(void)
       }
 
 #ifdef MPG1
+      au8DataContent[17]='\0';
       DebugPrintf(au8DataContent);
-      G_u8ReceiveNumber=au8DataContent[1]-48;
+      //G_u8ReceiveNumber=au8DataContent[1]-48;
 #endif /* MPG1 */
 
     }

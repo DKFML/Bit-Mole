@@ -43,7 +43,7 @@ All Global variable names shall start with "G_"
 /* New variables */
 volatile u32 G_u32UserAppFlags;                       /* Global state flags */
 extern u8 G_u8SendNumber;
-
+extern u8 G_u8ReceiveNumber;
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
 extern volatile u32 G_u32SystemFlags;                  /* From main.c */
@@ -340,7 +340,22 @@ static void UserAppSM_Idle(void)
       DebugPrintNumber(G_u8SendNumber);
     }
     AntToAnotherRunActiveState();
+  }
+  if(u32ClockDownForGame == 11000)
+  {
+    if(G_u8SendNumber < G_u8ReceiveNumber)
+    {
+      LCDMessage(LINE1_START_ADDR, "You are the loser!");
+    }
+    else if(G_u8SendNumber > G_u8ReceiveNumber)
+    {
+      LCDMessage(LINE1_START_ADDR, "You are the winner!");
+    }
     
+    else
+    {
+      LCDMessage(LINE1_START_ADDR, "Draw");
+    }
   }
   if(WasButtonPressed(BUTTON0)&&flag==0)
     {

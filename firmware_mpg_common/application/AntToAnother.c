@@ -43,7 +43,7 @@ All Global variable names shall start with "G_"
 /* New variables */
 volatile u32 G_u32AntToAnotherFlags;                       /* Global state flags */
 u8 G_u8SendNumber;
-
+u8 G_u8ReceiveNumber;
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
 extern AntSetupDataType G_stAntSetupData;                         /* From ant.c */
@@ -58,7 +58,6 @@ extern volatile u32 G_u32ApplicationFlags;             /* From main.c */
 extern volatile u32 G_u32SystemTime1ms;                /* From board-specific source file */
 extern volatile u32 G_u32SystemTime1s;                 /* From board-specific source file */
 
-extern volatile u8 *G_ReceiveFromAnother=0;
 
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -174,7 +173,7 @@ static void AntToAnotherSM_Idle(void)
 
 #ifdef MPG1
       DebugPrintf(au8DataContent);
-      G_ReceiveFromAnother=au8DataContent;
+      G_u8ReceiveNumber=au8DataContent[1]-48;
 #endif /* MPG1 */
 
     }

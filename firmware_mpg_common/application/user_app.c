@@ -131,7 +131,6 @@ void UserAppRunActiveState(void)
   UserApp_StateMachine();
   if(G_u8ReceiveNumber=='A'&&flag==0)
   {
-    ButtonAcknowledge(BUTTON3);
     UserApp_StateMachine = UserAppSM_Idle;
     flag=1;
     G_flag=1;

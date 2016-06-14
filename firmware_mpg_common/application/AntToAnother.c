@@ -156,7 +156,7 @@ State Machine Function Definitions
 /* Wait for a message to be queued */
 static void AntToAnotherSM_Idle(void)
 {
-  u8 au8TestMessage[] = {1,1,1,1,1,1,1,1};
+  u8 au8TestMessage[] = {65,1,1,1,4,5,6,7};
   u8 au8DataContent[17] = "xxxxxxxxxxxxxxxx";
   //LedOn(WHITE);
   LedOn(PURPLE);
@@ -175,9 +175,7 @@ static void AntToAnotherSM_Idle(void)
 #ifdef MPG1
       au8DataContent[17]='\0';
       DebugPrintf(au8DataContent);
-      G_u8ReceiveNumber=au8DataContent[1];
-      
-      
+      G_u8ReceiveNumber=16*(au8DataContent[0]-48)+au8DataContent[1]-48;
 #endif /* MPG1 */
 
     }
@@ -188,7 +186,7 @@ static void AntToAnotherSM_Idle(void)
       if(G_flag==1)
       {
         LedOn(WHITE);
-        au8TestMessage[0]=G_u8SendNumber;
+        //au8TestMessage[0]=G_u8SendNumber;
         AntQueueBroadcastMessage(au8TestMessage);
       }
     }

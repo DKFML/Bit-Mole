@@ -156,7 +156,7 @@ State Machine Function Definitions
 /* Wait for a message to be queued */
 static void AntToAnotherSM_Idle(void)
 {
-  u8 au8TestMessage[] = {65,1,1,1,4,5,6,7};
+  u8 au8TestMessage[] = {65,1,0,0,40,5,6,7};
   u8 au8DataContent[17] = "xxxxxxxxxxxxxxxx";
   //LedOn(WHITE);
   LedOn(PURPLE);

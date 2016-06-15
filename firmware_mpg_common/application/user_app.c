@@ -127,15 +127,16 @@ Promises:
 void UserAppRunActiveState(void)
 {
   static bool flag =0;
-  AntToAnotherRunActiveState();
+  
   UserApp_StateMachine();
   if(G_u8ReceiveNumber=='A'&&flag==0)
   {
+    ButtonAcknowledge(BUTTON0);
     UserApp_StateMachine = UserAppSM_Idle;
     flag=1;
     G_flag=1;
   }
-  
+  AntToAnotherRunActiveState();
 
 } /* end UserAppRunActiveState */
 

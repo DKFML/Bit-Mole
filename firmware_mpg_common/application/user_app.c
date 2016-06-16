@@ -58,7 +58,6 @@ extern AntSetupDataType G_stAntSetupData;                         /* From ant.c 
 extern u32 G_u32AntApiCurrentDataTimeStamp;                       /* From ant_api.c */
 extern AntApplicationMessageType G_eAntApiCurrentMessageClass;    /* From ant_api.c */
 extern u8 G_au8AntApiCurrentData[ANT_APPLICATION_MESSAGE_BYTES];  /* From ant_api.c */
-
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
 Variable names shall start with "UserApp_" and be declared as static.
@@ -66,7 +65,8 @@ Variable names shall start with "UserApp_" and be declared as static.
 static fnCode_type UserApp_StateMachine;            /* The state machine function pointer */
 static u32 UserApp_u32Timeout;                      /* Timeout counter used across states */
 
-
+static u32 UserApp_u32DataMsgCount = 0;   /* ANT_DATA packets received */
+static u32 UserApp_u32TickMsgCount = 0;   /* ANT_TICK packets received */
 /**********************************************************************************************************************
 Function Definitions
 **********************************************************************************************************************/
@@ -94,9 +94,15 @@ Promises:
 */
 void UserAppInitialize(void)
 {
+  /* Clear screen and place start messages */
   LCDCommand(LCD_CLEAR_CMD);
-  LCDMessage(LINE1_START_ADDR, "Beat Mole!");
-  /* Configure ANT for this application */
+  LCDMessage(LINE1_START_ADDR, "Beat Mole !"); 
+  LCDMessage(LINE2_START_ADDR, "Player2"); 
+
+  /* Start with LED0 in PURPLE state = channel is not configured */
+  LedOn(PURPLE);
+  
+ /* Configure ANT for this application */
   G_stAntSetupData.AntChannel          = ANT_CHANNEL_USERAPP;
   G_stAntSetupData.AntSerialLo         = ANT_SERIAL_LO_USERAPP;
   G_stAntSetupData.AntSerialHi         = ANT_SERIAL_HI_USERAPP;
@@ -106,19 +112,23 @@ void UserAppInitialize(void)
   G_stAntSetupData.AntChannelPeriodHi  = ANT_CHANNEL_PERIOD_HI_USERAPP;
   G_stAntSetupData.AntFrequency        = ANT_FREQUENCY_USERAPP;
   G_stAntSetupData.AntTxPower          = ANT_TX_POWER_USERAPP;
-
+  
   /* If good initialization, set state to Idle */
-  if( AntChannelConfig(ANT_MASTER) )
+  if( AntChannelConfig(ANT_SLAVE) )
   {
+    /* Channel is configured, so change LED to yellow */
+    LedOff(PURPLE);
+    LedOn(YELLOW);
     AntOpenChannel();
     UserApp_StateMachine = UserAppSM_Idle;
   }
   else
   {
     /* The task isn't properly initialized, so shut it down and don't run */
-    UserApp_StateMachine = UserAppSM_FailedInit;
+    LedBlink(RED, LED_4HZ);
+    UserApp_StateMachine = UserAppSM_Error;
   }
-
+  
 } /* end UserAppInitialize() */
 
 
@@ -175,18 +185,55 @@ static void UserAppSM_Idle(void)
   static bool FlagForGame =0;
   static u8 u8tempfordisplay[3];
   
-  
+
   static u8 au8SendNumber[] = {0x41, 0x61, 0, 0, 0xA5, 0, 0, 0};
   static u8 au8Receive[] = "xxxxxxxxxxxxxxxx";
+  static bool Flag_Button0 = 0;
+  static bool Flag_Button1 = 0;
+  static u8 u8LastState = 0xff;
+  u8 u8return[]= {1,35,69,103,137,171,205,239};
+  //AntQueueBroadcastMessage(u8return);
   
-  
-  if(FlagForGame == 1)
+  //Game Part 
+  if( FlagForGame == 1)
   {
     u16ClockDownForBeginning++;
-    u8count++;
+    if(u16ClockDownForBeginning == 8500)
+    {
+      u16ClockDownForBeginning = 8000;
+    }
     u32ClockDownForGame++;
+    u8count++;
     //Clock Down For Beginning
-    if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||
+    for(u8 i=1;i<8;i++)
+    {
+      if(u16ClockDownForBeginning == 1000*i)
+      {
+        LCDClearChars(LINE1_START_ADDR, 20);
+          //LCDClearChars(LINE2_START_ADDR, 20);
+          LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
+          LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
+          u8ClockDownForBegin[0]--;
+          if(u8ClockDownForBegin[0] < '/')
+          {
+            flag = 1;
+            u32ClockDownForGame=0;
+            LCDCommand(LCD_CLEAR_CMD);
+            LCDMessage(LINE1_START_ADDR, "Player1 T:");
+            LCDMessage(LINE1_START_ADDR+10,u8clockdown);
+            u8clockdown[0]='0';
+            u8clockdown[1]='9';
+            u8clockdown[2]='\0';
+            ButtonAcknowledge(BUTTON0);
+            ButtonAcknowledge(BUTTON1);
+            ButtonAcknowledge(BUTTON2);
+            ButtonAcknowledge(BUTTON3);
+          }
+        break;
+      }
+    }
+    
+    /*if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||
                                          u16ClockDownForBeginning == 2000 ||
                                          u16ClockDownForBeginning == 3000 ||
                                          u16ClockDownForBeginning == 4000 ||
@@ -195,6 +242,7 @@ static void UserAppSM_Idle(void)
                                          u16ClockDownForBeginning == 7000 ))
     {
       LCDClearChars(LINE1_START_ADDR, 20);
+      //LCDClearChars(LINE2_START_ADDR, 20);
       LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
       LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
       u8ClockDownForBegin[0]--;
@@ -214,9 +262,17 @@ static void UserAppSM_Idle(void)
         ButtonAcknowledge(BUTTON3);
       }
     }
+    if(u16ClockDownForBeginning == 2000)
+    {
+      u16ClockDownForBeginning == 1500;
+      flag = 1;
+      u8clockdown[0]='0';
+        u8clockdown[1]='9';
+        u8clockdown[2]='\0';
+    }*/
     
     //Game Start
-    if(flag == 1&&u8count == 50)
+    if(flag == 1&&u8count == 100)
     {
       u8count = 0;
       LedOff(GREEN);
@@ -231,6 +287,10 @@ static void UserAppSM_Idle(void)
          {
            u8CountForBit++;
            LedOn(GREEN);
+           NumberToAscii(u8CountForBit,u8tempfordisplay);
+           LCDClearChars(LINE1_START_ADDR+19,2);
+           LCDMessage(LINE1_START_ADDR+14,"Num:");
+           LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
          }
          else
          {
@@ -247,6 +307,10 @@ static void UserAppSM_Idle(void)
          {
            u8CountForBit++;
            LedOn(GREEN);
+           NumberToAscii(u8CountForBit,u8tempfordisplay);
+           LCDClearChars(LINE1_START_ADDR+19,2);
+           LCDMessage(LINE1_START_ADDR+14,"Num:");
+           LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
          }
          else
          {
@@ -263,6 +327,10 @@ static void UserAppSM_Idle(void)
          {
            u8CountForBit++;
            LedOn(GREEN);
+           NumberToAscii(u8CountForBit,u8tempfordisplay);
+           LCDClearChars(LINE1_START_ADDR+19,2);
+           LCDMessage(LINE1_START_ADDR+14,"Num:");
+           LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
          }
          else
          {
@@ -279,6 +347,10 @@ static void UserAppSM_Idle(void)
          {
            u8CountForBit++;
            LedOn(GREEN);
+           NumberToAscii(u8CountForBit,u8tempfordisplay);
+           LCDClearChars(LINE1_START_ADDR+19,2);
+           LCDMessage(LINE1_START_ADDR+14,"Num:");
+           LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
          }
          else
          {
@@ -290,15 +362,10 @@ static void UserAppSM_Idle(void)
       }
       
       
-
-      NumberToAscii(u8CountForBit,u8tempfordisplay);
-      LCDClearChars(LINE1_START_ADDR+19,2);
-      LCDMessage(LINE1_START_ADDR+14,"Num:");
-      LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
       
     }
-    
-    //Game Clock Down
+   
+    //Game Clock Down &&u8count == 50
     for(u8 i=1;i<11;i++)
     {
       if(u32ClockDownForGame == 1000*i)
@@ -312,19 +379,22 @@ static void UserAppSM_Idle(void)
         break;
       }
     }
+    
     //Game End
     if(u32ClockDownForGame == 10000)
     {
       flag = 0;
-      LCDCommand(LCD_CLEAR_CMD);
-      LCDMessage(LINE1_START_ADDR, "TIME OUT!");
+      LCDClearChars(LINE2_START_ADDR, 20);
+      LCDMessage(LINE2_START_ADDR, "TIME OUT!");
       LedOff(GREEN);
       LedOff(RED);
+      LedOff(BLUE);
+      /*AntCloseChannel();*/
+      LedOn(YELLOW);
     }
     if(u32ClockDownForGame > 11500)
     {
-      u16ClockDownForBeginning = 8000;
-      u32ClockDownForGame = 10001;
+      u32ClockDownForGame = 10150;
       if(u8CountForBit > (au8Receive[0]-48)*16+au8Receive[1]-48)
       {
         LCDMessage(LINE1_START_ADDR, "You are the winner !");
@@ -354,11 +424,19 @@ static void UserAppSM_Idle(void)
         u8count=0;
         u8CountForBit = 0;
         LCDMessage(LINE1_START_ADDR, "Wait for a player..");
+        /*AntCloseChannel();
+        LedOff(BLUE);
+        LedOn(YELLOW);*/
+        AntOpenChannel();
+        
+        u8LastState = EVENT_RX_FAIL_GO_TO_SEARCH;
       }
     
-  }
   
-  //Contact to another player by ANT 
+  }
+
+  
+  //ANT Part
   //Get the count and send it to another Machine when the count has changed
   au8SendNumber[0] = u8CountForBit;
   if(au8SendNumber[0] != au8SendNumber[1])
@@ -366,32 +444,93 @@ static void UserAppSM_Idle(void)
     AntQueueBroadcastMessage (au8SendNumber);
   }
   au8SendNumber[1] = u8CountForBit;
-  //ANT READ
+  /* Queue open channel and change LED0 from yellow to blinking green to indicate channel is opening */
+  /*if(WasButtonPressed(BUTTON0)&&Flag_Button0 == 0)
+  {
+    ButtonAcknowledge(BUTTON0);
+    Flag_Button0 = 1;
+    
+    AntOpenChannel();
+    LedOff(YELLOW);
+    LCDClearChars(LINE2_START_ADDR, 20);
+    
+  }*/
+  LedOff(YELLOW);
+  /* Always check for ANT messages */
   if( AntReadData() )
   {
-    
      /* New data message: check what it is */
     if(G_eAntApiCurrentMessageClass == ANT_DATA)
     {
-      /* Get the number from another machine and parse it into au8Receive */
+      /* We got some data: parse it into au8DataContent */
       for(u8 i = 0; i < ANT_DATA_BYTES; i++)
       {
         au8Receive[2 * i]     = HexToASCIICharUpper(G_au8AntApiCurrentData[i] / 16);
         au8Receive[2 * i + 1] = HexToASCIICharUpper(G_au8AntApiCurrentData[i] % 16);
       }
-      //Get the key and start the game
-      if(strcmp(au8Receive,"0023456789ABCDEF")==0)
-      {
-        FlagForGame = 1;//static bool
-      }
-    }
+    } /* end if(G_eAntApiCurrentMessageClass == ANT_DATA) */
+
     else if(G_eAntApiCurrentMessageClass == ANT_TICK)
     {
-     /* A channel period has gone by: typically this is when new data should be queued to be sent */
-    
-    }
+      /* Look at the TICK contents to check the event code and respond only if it's different */
+      if(u8LastState != G_au8AntApiCurrentData[ANT_TICK_MSG_EVENT_CODE_INDEX])
+      {
+        /* The state changed so update u8LastState and queue a debug message */
+        u8LastState = G_au8AntApiCurrentData[ANT_TICK_MSG_EVENT_CODE_INDEX];
+
+        /* Parse u8LastState to update LED status */
+        switch (u8LastState)
+        {
+          /* If we are synced with a device, blue is solid */
+          case RESPONSE_NO_ERROR:
+          {
+            LedOff(GREEN);
+            LedOn(BLUE);
+            FlagForGame =1;
+            LCDClearChars(LINE2_START_ADDR, 20);
+            u8 u8return[]= {0,35,69,103,137,171,205,239};
+            AntQueueBroadcastMessage(u8return);
+            break;
+          }
+
+          /* If we are paired but missing messages, blue blinks */
+          case EVENT_RX_FAIL:
+          {
+            LedOff(GREEN);
+            LedBlink(BLUE, LED_2HZ);
+            break;
+          }
+
+          /* If we drop to search, LED is green */
+          case EVENT_RX_FAIL_GO_TO_SEARCH:
+          {
+            LedOff(BLUE);
+            LedOn(GREEN);
+            break;
+          }
+
+          /* If the search times out, the channel should automatically close */
+          case EVENT_RX_SEARCH_TIMEOUT:
+          {
+            DebugPrintf("Search timeout\r\n");
+            break;
+          }
+
+          default:
+          {
+            DebugPrintf("Unexpected Event\r\n");
+            break;
+          }
+        } /* end switch (G_au8AntApiCurrentData) */
+      } /* end if (u8LastState ...) */
+    } /* end else if(G_eAntApiCurrentMessageClass == ANT_TICK) */
   } /* end AntReadData() */
+
+   
   
+  
+  
+   
 } /* end UserAppSM_Idle() */
      
 

@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\DK\\Desktop\\EIE\277\316\263\314\311\350\274\306-\265\245\306\254\273\372\\Razor_Atmel-master\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
+#line 1 "C:\\Users\\DK\\Desktop\\Razor_Atmel-slave\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
 /******************************************************************************
  * @file:    core_cm3.c
  * @purpose: CMSIS Cortex-M3 Core Peripheral Access Layer Source File
@@ -2127,11 +2127,11 @@ typedef int __data_intptr_t; typedef unsigned int __data_uintptr_t;
  * Copyright (c) 1992-2009 by P.J. Plauger.  ALL RIGHTS RESERVED.
  * Consult your license regarding permissions and restrictions.
 V5.04:0576 */
-#line 25 "C:\\Users\\DK\\Desktop\\EIE\277\316\263\314\311\350\274\306-\265\245\306\254\273\372\\Razor_Atmel-master\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
+#line 25 "C:\\Users\\DK\\Desktop\\Razor_Atmel-slave\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
 
 
 /* define compiler specific symbols */
-#line 36 "C:\\Users\\DK\\Desktop\\EIE\277\316\263\314\311\350\274\306-\265\245\306\254\273\372\\Razor_Atmel-master\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
+#line 36 "C:\\Users\\DK\\Desktop\\Razor_Atmel-slave\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
 
 
 
@@ -2140,9 +2140,9 @@ V5.04:0576 */
 
 
 
-#line 266 "C:\\Users\\DK\\Desktop\\EIE\277\316\263\314\311\350\274\306-\265\245\306\254\273\372\\Razor_Atmel-master\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
+#line 266 "C:\\Users\\DK\\Desktop\\Razor_Atmel-slave\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
 /* obsolete */
-#line 611 "C:\\Users\\DK\\Desktop\\EIE\277\316\263\314\311\350\274\306-\265\245\306\254\273\372\\Razor_Atmel-master\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
+#line 611 "C:\\Users\\DK\\Desktop\\Razor_Atmel-slave\\Razor_Atmel-master\\firmware_mpg_common\\cmsis\\core_cm3.c"
 
 
 

@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1493656194
+Checksum=446487176
 [JLinkDriver]
 CStepIntDis=_ 0
 WatchCond=_ 0
@@ -38,6 +38,8 @@ UseAuto=0
 TypeViolation=1
 UnspecRange=1
 ActionState=1
+[array_types]
+Fmt0=u8[8]	4	0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -57,7 +59,11 @@ Exclusions=
 mode=0
 [Breakpoints2]
 Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\application\mpgl1_board_test.c}.382.5" 0 0 1 "" 0 "" 0
-Count=1
+Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\firmware_mpg_common\application\user_app.c}.326.9" 0 0 1 "" 0 "" 0
+Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\firmware_mpg_common\application\user_app.c}.491.11" 0 0 1 "" 0 "" 0
+Bp3=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\firmware_mpg_common\application\user_app.c}.328.11" 0 0 1 "" 0 "" 0
+Count=4
 [Aliases]
-Count=0
+A0=_ "C:\Users\DK\Desktop\EIE课程设计-单片机\Razor_Atmel-master\Razor_Atmel-master\firmware_mpg_common\drivers\interrupts.c" ""
+Count=1
 SuppressDialog=0

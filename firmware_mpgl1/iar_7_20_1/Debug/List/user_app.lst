@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        16/Jun/2016  13:23:19
+# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        16/Jun/2016  14:15:57
 # Copyright 1999-2014 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -847,7 +847,7 @@ Warning[Pe188]: enumerated type mixed with another type
    \                     ??UserAppSM_Idle_2: (+1)
    \   00000062   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
    \   00000064   0x2808             CMP      R0,#+8
-   \   00000066   0xDA58             BGE.N    ??UserAppSM_Idle_3
+   \   00000066   0xDA5B             BGE.N    ??UserAppSM_Idle_3
     323              {
     324                if(u16ClockDownForBeginning == 1000*i)
    \   00000068   0x.... 0x....      LDR.W    R1,??DataTable5_14
@@ -856,532 +856,533 @@ Warning[Pe188]: enumerated type mixed with another type
    \   00000070   0xF44F 0x727A      MOV      R2,#+1000
    \   00000074   0xFB02 0xF200      MUL      R2,R2,R0
    \   00000078   0x4291             CMP      R1,R2
-   \   0000007A   0xD14C             BNE.N    ??UserAppSM_Idle_4
+   \   0000007A   0xD14F             BNE.N    ??UserAppSM_Idle_4
     325                {
-    326                  LCDClearChars(LINE1_START_ADDR, 20);
-   \   0000007C   0x2114             MOVS     R1,#+20
-   \   0000007E   0x2000             MOVS     R0,#+0
-   \   00000080   0x.... 0x....      BL       LCDClearChars
-    327                    //LCDClearChars(LINE2_START_ADDR, 20);
-    328                    LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
-   \   00000084   0x.... 0x....      LDR.W    R1,??DataTable5_17
-   \   00000088   0x2000             MOVS     R0,#+0
-   \   0000008A   0x.... 0x....      BL       LCDMessage
-    329                    LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
-   \   0000008E   0x.... 0x....      LDR.W    R1,??DataTable5_18
-   \   00000092   0x200C             MOVS     R0,#+12
-   \   00000094   0x.... 0x....      BL       LCDMessage
-    330                    LCDMessage(LINE2_START_ADDR, "Player2");
-   \   00000098   0x.... 0x....      LDR.W    R1,??DataTable5_1
-   \   0000009C   0x2040             MOVS     R0,#+64
-   \   0000009E   0x.... 0x....      BL       LCDMessage
-    331                    u8ClockDownForBegin[0]--;
-   \   000000A2   0x.... 0x....      LDR.W    R0,??DataTable5_18
-   \   000000A6   0x7800             LDRB     R0,[R0, #+0]
-   \   000000A8   0x1E40             SUBS     R0,R0,#+1
-   \   000000AA   0x.... 0x....      LDR.W    R1,??DataTable5_18
-   \   000000AE   0x7008             STRB     R0,[R1, #+0]
-    332                    if(u8ClockDownForBegin[0] < '/')
-   \   000000B0   0x.... 0x....      LDR.W    R0,??DataTable5_18
-   \   000000B4   0x7800             LDRB     R0,[R0, #+0]
-   \   000000B6   0x282F             CMP      R0,#+47
-   \   000000B8   0xDA2C             BGE.N    ??UserAppSM_Idle_5
-    333                    {
-    334                      flag = 1;
+    326                  LedOff(YELLOW);  
+   \   0000007C   0x2005             MOVS     R0,#+5
+   \   0000007E   0x.... 0x....      BL       LedOff
+    327                  LCDClearChars(LINE1_START_ADDR, 20);
+   \   00000082   0x2114             MOVS     R1,#+20
+   \   00000084   0x2000             MOVS     R0,#+0
+   \   00000086   0x.... 0x....      BL       LCDClearChars
+    328                    //LCDClearChars(LINE2_START_ADDR, 20);
+    329                    LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
+   \   0000008A   0x.... 0x....      LDR.W    R1,??DataTable5_17
+   \   0000008E   0x2000             MOVS     R0,#+0
+   \   00000090   0x.... 0x....      BL       LCDMessage
+    330                    LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
+   \   00000094   0x.... 0x....      LDR.W    R1,??DataTable5_18
+   \   00000098   0x200C             MOVS     R0,#+12
+   \   0000009A   0x.... 0x....      BL       LCDMessage
+    331                    LCDMessage(LINE2_START_ADDR, "Player2");
+   \   0000009E   0x.... 0x....      LDR.W    R1,??DataTable5_1
+   \   000000A2   0x2040             MOVS     R0,#+64
+   \   000000A4   0x.... 0x....      BL       LCDMessage
+    332                    u8ClockDownForBegin[0]--;
+   \   000000A8   0x.... 0x....      LDR.W    R0,??DataTable5_18
+   \   000000AC   0x7800             LDRB     R0,[R0, #+0]
+   \   000000AE   0x1E40             SUBS     R0,R0,#+1
+   \   000000B0   0x.... 0x....      LDR.W    R1,??DataTable5_18
+   \   000000B4   0x7008             STRB     R0,[R1, #+0]
+    333                    if(u8ClockDownForBegin[0] < '/')
+   \   000000B6   0x.... 0x....      LDR.W    R0,??DataTable5_18
+   \   000000BA   0x7800             LDRB     R0,[R0, #+0]
+   \   000000BC   0x282F             CMP      R0,#+47
+   \   000000BE   0xDA2C             BGE.N    ??UserAppSM_Idle_5
+    334                    {
+    335                      flag = 1;
                                   ^
 Warning[Pe188]: enumerated type mixed with another type
-   \   000000BA   0x2001             MOVS     R0,#+1
-   \   000000BC   0x.... 0x....      LDR.W    R1,??DataTable5_19
-   \   000000C0   0x7008             STRB     R0,[R1, #+0]
-    335                      u32ClockDownForGame=0;
-   \   000000C2   0x2000             MOVS     R0,#+0
-   \   000000C4   0x.... 0x....      LDR.W    R1,??DataTable5_15
-   \   000000C8   0x6008             STR      R0,[R1, #+0]
-    336                      LCDCommand(LCD_CLEAR_CMD);
-   \   000000CA   0x2001             MOVS     R0,#+1
-   \   000000CC   0x.... 0x....      BL       LCDCommand
-    337                      LCDMessage(LINE1_START_ADDR, "Player2 T:");
-   \   000000D0   0x.... 0x....      LDR.W    R1,??DataTable5_20
-   \   000000D4   0x2000             MOVS     R0,#+0
-   \   000000D6   0x.... 0x....      BL       LCDMessage
-    338                      LCDMessage(LINE1_START_ADDR+10,u8clockdown);
-   \   000000DA   0x.... 0x....      LDR.W    R1,??DataTable5_21
-   \   000000DE   0x200A             MOVS     R0,#+10
-   \   000000E0   0x.... 0x....      BL       LCDMessage
-    339                      u8clockdown[0]='0';
-   \   000000E4   0x2030             MOVS     R0,#+48
-   \   000000E6   0x.... 0x....      LDR.W    R1,??DataTable5_21
-   \   000000EA   0x7008             STRB     R0,[R1, #+0]
-    340                      u8clockdown[1]='9';
-   \   000000EC   0x2039             MOVS     R0,#+57
-   \   000000EE   0x.... 0x....      LDR.W    R1,??DataTable5_21
-   \   000000F2   0x7048             STRB     R0,[R1, #+1]
-    341                      u8clockdown[2]='\0';
-   \   000000F4   0x2000             MOVS     R0,#+0
-   \   000000F6   0x.... 0x....      LDR.W    R1,??DataTable5_21
-   \   000000FA   0x7088             STRB     R0,[R1, #+2]
-    342                      ButtonAcknowledge(BUTTON0);
-   \   000000FC   0x2000             MOVS     R0,#+0
-   \   000000FE   0x.... 0x....      BL       ButtonAcknowledge
-    343                      ButtonAcknowledge(BUTTON1);
-   \   00000102   0x2001             MOVS     R0,#+1
+   \   000000C0   0x2001             MOVS     R0,#+1
+   \   000000C2   0x.... 0x....      LDR.W    R1,??DataTable5_19
+   \   000000C6   0x7008             STRB     R0,[R1, #+0]
+    336                      u32ClockDownForGame=0;
+   \   000000C8   0x2000             MOVS     R0,#+0
+   \   000000CA   0x.... 0x....      LDR.W    R1,??DataTable5_15
+   \   000000CE   0x6008             STR      R0,[R1, #+0]
+    337                      LCDCommand(LCD_CLEAR_CMD);
+   \   000000D0   0x2001             MOVS     R0,#+1
+   \   000000D2   0x.... 0x....      BL       LCDCommand
+    338                      LCDMessage(LINE1_START_ADDR, "Player2 T:");
+   \   000000D6   0x.... 0x....      LDR.W    R1,??DataTable5_20
+   \   000000DA   0x2000             MOVS     R0,#+0
+   \   000000DC   0x.... 0x....      BL       LCDMessage
+    339                      LCDMessage(LINE1_START_ADDR+10,u8clockdown);
+   \   000000E0   0x.... 0x....      LDR.W    R1,??DataTable5_21
+   \   000000E4   0x200A             MOVS     R0,#+10
+   \   000000E6   0x.... 0x....      BL       LCDMessage
+    340                      u8clockdown[0]='0';
+   \   000000EA   0x2030             MOVS     R0,#+48
+   \   000000EC   0x.... 0x....      LDR.W    R1,??DataTable5_21
+   \   000000F0   0x7008             STRB     R0,[R1, #+0]
+    341                      u8clockdown[1]='9';
+   \   000000F2   0x2039             MOVS     R0,#+57
+   \   000000F4   0x.... 0x....      LDR.W    R1,??DataTable5_21
+   \   000000F8   0x7048             STRB     R0,[R1, #+1]
+    342                      u8clockdown[2]='\0';
+   \   000000FA   0x2000             MOVS     R0,#+0
+   \   000000FC   0x.... 0x....      LDR.W    R1,??DataTable5_21
+   \   00000100   0x7088             STRB     R0,[R1, #+2]
+    343                      ButtonAcknowledge(BUTTON0);
+   \   00000102   0x2000             MOVS     R0,#+0
    \   00000104   0x.... 0x....      BL       ButtonAcknowledge
-    344                      ButtonAcknowledge(BUTTON2);
-   \   00000108   0x2002             MOVS     R0,#+2
+    344                      ButtonAcknowledge(BUTTON1);
+   \   00000108   0x2001             MOVS     R0,#+1
    \   0000010A   0x.... 0x....      BL       ButtonAcknowledge
-    345                      ButtonAcknowledge(BUTTON3);
-   \   0000010E   0x2003             MOVS     R0,#+3
+    345                      ButtonAcknowledge(BUTTON2);
+   \   0000010E   0x2002             MOVS     R0,#+2
    \   00000110   0x.... 0x....      BL       ButtonAcknowledge
-    346                    }
-    347                  break;
+    346                      ButtonAcknowledge(BUTTON3);
+   \   00000114   0x2003             MOVS     R0,#+3
+   \   00000116   0x.... 0x....      BL       ButtonAcknowledge
+    347                    }
+    348                  break;
    \                     ??UserAppSM_Idle_5: (+1)
-   \   00000114   0xE001             B.N      ??UserAppSM_Idle_3
-    348                }
-    349              }
+   \   0000011A   0xE001             B.N      ??UserAppSM_Idle_3
+    349                }
+    350              }
    \                     ??UserAppSM_Idle_4: (+1)
-   \   00000116   0x1C40             ADDS     R0,R0,#+1
-   \   00000118   0xE7A3             B.N      ??UserAppSM_Idle_2
-    350              
-    351              /*if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||
-    352                                                   u16ClockDownForBeginning == 2000 ||
-    353                                                   u16ClockDownForBeginning == 3000 ||
-    354                                                   u16ClockDownForBeginning == 4000 ||
-    355                                                   u16ClockDownForBeginning == 5000 ||
-    356                                                   u16ClockDownForBeginning == 6000 ||
-    357                                                   u16ClockDownForBeginning == 7000 ))
-    358              {
-    359                LCDClearChars(LINE1_START_ADDR, 20);
-    360                //LCDClearChars(LINE2_START_ADDR, 20);
-    361                LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
-    362                LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
-    363                u8ClockDownForBegin[0]--;
-    364                if(u8ClockDownForBegin[0] < '/')
-    365                {
-    366                  flag = 1;
-    367                  u32ClockDownForGame=0;
-    368                  LCDCommand(LCD_CLEAR_CMD);
-    369                  LCDMessage(LINE1_START_ADDR, "Player1 T:");
-    370                  LCDMessage(LINE1_START_ADDR+10,u8clockdown);
-    371                  u8clockdown[0]='0';
-    372                  u8clockdown[1]='9';
-    373                  u8clockdown[2]='\0';
-    374                  ButtonAcknowledge(BUTTON0);
-    375                  ButtonAcknowledge(BUTTON1);
-    376                  ButtonAcknowledge(BUTTON2);
-    377                  ButtonAcknowledge(BUTTON3);
-    378                }
-    379              }
-    380              if(u16ClockDownForBeginning == 2000)
-    381              {
-    382                u16ClockDownForBeginning == 1500;
-    383                flag = 1;
-    384                u8clockdown[0]='0';
-    385                  u8clockdown[1]='9';
-    386                  u8clockdown[2]='\0';
-    387              }*/
-    388              
-    389              //Game Start
-    390              if(flag == 1&&u8count == 100)
+   \   0000011C   0x1C40             ADDS     R0,R0,#+1
+   \   0000011E   0xE7A0             B.N      ??UserAppSM_Idle_2
+    351              
+    352              /*if(u16ClockDownForBeginning<8000 && (u16ClockDownForBeginning == 1000 ||
+    353                                                   u16ClockDownForBeginning == 2000 ||
+    354                                                   u16ClockDownForBeginning == 3000 ||
+    355                                                   u16ClockDownForBeginning == 4000 ||
+    356                                                   u16ClockDownForBeginning == 5000 ||
+    357                                                   u16ClockDownForBeginning == 6000 ||
+    358                                                   u16ClockDownForBeginning == 7000 ))
+    359              {
+    360                LCDClearChars(LINE1_START_ADDR, 20);
+    361                //LCDClearChars(LINE2_START_ADDR, 20);
+    362                LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
+    363                LCDMessage(LINE1_START_ADDR+12, u8ClockDownForBegin);
+    364                u8ClockDownForBegin[0]--;
+    365                if(u8ClockDownForBegin[0] < '/')
+    366                {
+    367                  flag = 1;
+    368                  u32ClockDownForGame=0;
+    369                  LCDCommand(LCD_CLEAR_CMD);
+    370                  LCDMessage(LINE1_START_ADDR, "Player1 T:");
+    371                  LCDMessage(LINE1_START_ADDR+10,u8clockdown);
+    372                  u8clockdown[0]='0';
+    373                  u8clockdown[1]='9';
+    374                  u8clockdown[2]='\0';
+    375                  ButtonAcknowledge(BUTTON0);
+    376                  ButtonAcknowledge(BUTTON1);
+    377                  ButtonAcknowledge(BUTTON2);
+    378                  ButtonAcknowledge(BUTTON3);
+    379                }
+    380              }
+    381              if(u16ClockDownForBeginning == 2000)
+    382              {
+    383                u16ClockDownForBeginning == 1500;
+    384                flag = 1;
+    385                u8clockdown[0]='0';
+    386                  u8clockdown[1]='9';
+    387                  u8clockdown[2]='\0';
+    388              }*/
+    389              
+    390              //Game Start
+    391              if(flag == 1&&u8count == 100)
    \                     ??UserAppSM_Idle_3: (+1)
-   \   0000011A   0x.... 0x....      LDR.W    R0,??DataTable5_19
-   \   0000011E   0x7800             LDRB     R0,[R0, #+0]
-   \   00000120   0x2801             CMP      R0,#+1
-   \   00000122   0xF040 0x8112      BNE.W    ??UserAppSM_Idle_6
-   \   00000126   0x.... 0x....      LDR.W    R0,??DataTable5_16
-   \   0000012A   0x7800             LDRB     R0,[R0, #+0]
-   \   0000012C   0x2864             CMP      R0,#+100
-   \   0000012E   0xF040 0x810C      BNE.W    ??UserAppSM_Idle_6
-    391              {
-    392                u8count = 0;
-   \   00000132   0x2000             MOVS     R0,#+0
-   \   00000134   0x.... 0x....      LDR.W    R1,??DataTable5_16
-   \   00000138   0x7008             STRB     R0,[R1, #+0]
-    393                LedOff(GREEN);
-   \   0000013A   0x2004             MOVS     R0,#+4
-   \   0000013C   0x.... 0x....      BL       LedOff
-    394                LedOff(RED);
-   \   00000140   0x2007             MOVS     R0,#+7
+   \   00000120   0x.... 0x....      LDR.W    R0,??DataTable5_19
+   \   00000124   0x7800             LDRB     R0,[R0, #+0]
+   \   00000126   0x2801             CMP      R0,#+1
+   \   00000128   0xF040 0x8112      BNE.W    ??UserAppSM_Idle_6
+   \   0000012C   0x.... 0x....      LDR.W    R0,??DataTable5_16
+   \   00000130   0x7800             LDRB     R0,[R0, #+0]
+   \   00000132   0x2864             CMP      R0,#+100
+   \   00000134   0xF040 0x810C      BNE.W    ??UserAppSM_Idle_6
+    392              {
+    393                u8count = 0;
+   \   00000138   0x2000             MOVS     R0,#+0
+   \   0000013A   0x.... 0x....      LDR.W    R1,??DataTable5_16
+   \   0000013E   0x7008             STRB     R0,[R1, #+0]
+    394                LedOff(GREEN);
+   \   00000140   0x2004             MOVS     R0,#+4
    \   00000142   0x.... 0x....      BL       LedOff
-    395                LCDClearChars(LINE2_START_ADDR, 20);
-   \   00000146   0x2114             MOVS     R1,#+20
-   \   00000148   0x2040             MOVS     R0,#+64
-   \   0000014A   0x.... 0x....      BL       LCDClearChars
-    396                u8 u8Mole[]={'M','\0'};
+    395                LedOff(RED);
+   \   00000146   0x2007             MOVS     R0,#+7
+   \   00000148   0x.... 0x....      BL       LedOff
+    396                LCDClearChars(LINE2_START_ADDR, 20);
+   \   0000014C   0x2114             MOVS     R1,#+20
+   \   0000014E   0x2040             MOVS     R0,#+64
+   \   00000150   0x.... 0x....      BL       LCDClearChars
+    397                u8 u8Mole[]={'M','\0'};
                           ^
 Warning[Pe177]: variable "u8Mole" was declared but never referenced
-   \   0000014E   0x.... 0x....      LDR.W    R0,??DataTable5_22
-   \   00000152   0x8800             LDRH     R0,[R0, #+0]
-   \   00000154   0xF8AD 0x0000      STRH     R0,[SP, #+0]
-    397                LCDMessage(LINE2_START_ADDR+*u8PointToNextMole, "M");
-   \   00000158   0xA1B4             ADR.N    R1,??UserAppSM_Idle_7  ;; "M"
-   \   0000015A   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   0000015E   0x6800             LDR      R0,[R0, #+0]
-   \   00000160   0x7800             LDRB     R0,[R0, #+0]
-   \   00000162   0x3040             ADDS     R0,R0,#+64
-   \   00000164   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   00000166   0x.... 0x....      BL       LCDMessage
-    398                if(WasButtonPressed(BUTTON0))
-   \   0000016A   0x2000             MOVS     R0,#+0
-   \   0000016C   0x.... 0x....      BL       WasButtonPressed
-   \   00000170   0x2800             CMP      R0,#+0
-   \   00000172   0xD036             BEQ.N    ??UserAppSM_Idle_8
-    399                {
-    400                   ButtonAcknowledge(BUTTON0);
-   \   00000174   0x2000             MOVS     R0,#+0
-   \   00000176   0x.... 0x....      BL       ButtonAcknowledge
-    401                   if(*u8PointToNextMole == 0)
-   \   0000017A   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   0000017E   0x6800             LDR      R0,[R0, #+0]
-   \   00000180   0x7800             LDRB     R0,[R0, #+0]
-   \   00000182   0x2800             CMP      R0,#+0
-   \   00000184   0xD11F             BNE.N    ??UserAppSM_Idle_9
-    402                   {
-    403                     u8CountForBit++;
-   \   00000186   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   0000018A   0x7800             LDRB     R0,[R0, #+0]
-   \   0000018C   0x1C40             ADDS     R0,R0,#+1
-   \   0000018E   0x.... 0x....      LDR.W    R1,??DataTable5_24
-   \   00000192   0x7008             STRB     R0,[R1, #+0]
-    404                     LedOn(GREEN);
-   \   00000194   0x2004             MOVS     R0,#+4
-   \   00000196   0x.... 0x....      BL       LedOn
-    405                     NumberToAscii(u8CountForBit,u8tempfordisplay);
-   \   0000019A   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   0000019E   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   000001A2   0x7800             LDRB     R0,[R0, #+0]
-   \   000001A4   0x.... 0x....      BL       NumberToAscii
-    406                     LCDClearChars(LINE1_START_ADDR+19,2);
-   \   000001A8   0x2102             MOVS     R1,#+2
-   \   000001AA   0x2013             MOVS     R0,#+19
-   \   000001AC   0x.... 0x....      BL       LCDClearChars
-    407                     LCDMessage(LINE1_START_ADDR+14,"Num:");
-   \   000001B0   0x.... 0x....      LDR.W    R1,??DataTable5_26
-   \   000001B4   0x200E             MOVS     R0,#+14
-   \   000001B6   0x.... 0x....      BL       LCDMessage
-    408                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
-   \   000001BA   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   000001BE   0x2012             MOVS     R0,#+18
-   \   000001C0   0x.... 0x....      BL       LCDMessage
-   \   000001C4   0xE002             B.N      ??UserAppSM_Idle_10
-    409                   }
-    410                   else
-    411                   {
-    412                     LedOn(RED);
+   \   00000154   0x.... 0x....      LDR.W    R0,??DataTable5_22
+   \   00000158   0x8800             LDRH     R0,[R0, #+0]
+   \   0000015A   0xF8AD 0x0000      STRH     R0,[SP, #+0]
+    398                LCDMessage(LINE2_START_ADDR+*u8PointToNextMole, "M");
+   \   0000015E   0xA1B3             ADR.N    R1,??UserAppSM_Idle_7  ;; "M"
+   \   00000160   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   00000164   0x6800             LDR      R0,[R0, #+0]
+   \   00000166   0x7800             LDRB     R0,[R0, #+0]
+   \   00000168   0x3040             ADDS     R0,R0,#+64
+   \   0000016A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000016C   0x.... 0x....      BL       LCDMessage
+    399                if(WasButtonPressed(BUTTON0))
+   \   00000170   0x2000             MOVS     R0,#+0
+   \   00000172   0x.... 0x....      BL       WasButtonPressed
+   \   00000176   0x2800             CMP      R0,#+0
+   \   00000178   0xD036             BEQ.N    ??UserAppSM_Idle_8
+    400                {
+    401                   ButtonAcknowledge(BUTTON0);
+   \   0000017A   0x2000             MOVS     R0,#+0
+   \   0000017C   0x.... 0x....      BL       ButtonAcknowledge
+    402                   if(*u8PointToNextMole == 0)
+   \   00000180   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   00000184   0x6800             LDR      R0,[R0, #+0]
+   \   00000186   0x7800             LDRB     R0,[R0, #+0]
+   \   00000188   0x2800             CMP      R0,#+0
+   \   0000018A   0xD11F             BNE.N    ??UserAppSM_Idle_9
+    403                   {
+    404                     u8CountForBit++;
+   \   0000018C   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   00000190   0x7800             LDRB     R0,[R0, #+0]
+   \   00000192   0x1C40             ADDS     R0,R0,#+1
+   \   00000194   0x.... 0x....      LDR.W    R1,??DataTable5_24
+   \   00000198   0x7008             STRB     R0,[R1, #+0]
+    405                     LedOn(GREEN);
+   \   0000019A   0x2004             MOVS     R0,#+4
+   \   0000019C   0x.... 0x....      BL       LedOn
+    406                     NumberToAscii(u8CountForBit,u8tempfordisplay);
+   \   000001A0   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   000001A4   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   000001A8   0x7800             LDRB     R0,[R0, #+0]
+   \   000001AA   0x.... 0x....      BL       NumberToAscii
+    407                     LCDClearChars(LINE1_START_ADDR+19,2);
+   \   000001AE   0x2102             MOVS     R1,#+2
+   \   000001B0   0x2013             MOVS     R0,#+19
+   \   000001B2   0x.... 0x....      BL       LCDClearChars
+    408                     LCDMessage(LINE1_START_ADDR+14,"Num:");
+   \   000001B6   0x.... 0x....      LDR.W    R1,??DataTable5_26
+   \   000001BA   0x200E             MOVS     R0,#+14
+   \   000001BC   0x.... 0x....      BL       LCDMessage
+    409                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
+   \   000001C0   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   000001C4   0x2012             MOVS     R0,#+18
+   \   000001C6   0x.... 0x....      BL       LCDMessage
+   \   000001CA   0xE002             B.N      ??UserAppSM_Idle_10
+    410                   }
+    411                   else
+    412                   {
+    413                     LedOn(RED);
    \                     ??UserAppSM_Idle_9: (+1)
-   \   000001C6   0x2007             MOVS     R0,#+7
-   \   000001C8   0x.... 0x....      BL       LedOn
-    413                   }
-    414                   LCDClearChars(LINE2_START_ADDR,20);
+   \   000001CC   0x2007             MOVS     R0,#+7
+   \   000001CE   0x.... 0x....      BL       LedOn
+    414                   }
+    415                   LCDClearChars(LINE2_START_ADDR,20);
    \                     ??UserAppSM_Idle_10: (+1)
-   \   000001CC   0x2114             MOVS     R1,#+20
-   \   000001CE   0x2040             MOVS     R0,#+64
-   \   000001D0   0x.... 0x....      BL       LCDClearChars
-    415                   
-    416                   u8PointToNextMole++;
-   \   000001D4   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   000001D8   0x6800             LDR      R0,[R0, #+0]
-   \   000001DA   0x1C40             ADDS     R0,R0,#+1
-   \   000001DC   0x.... 0x....      LDR.W    R1,??DataTable5_23
-   \   000001E0   0x6008             STR      R0,[R1, #+0]
-    417                }
-    418                if(WasButtonPressed(BUTTON1))
+   \   000001D2   0x2114             MOVS     R1,#+20
+   \   000001D4   0x2040             MOVS     R0,#+64
+   \   000001D6   0x.... 0x....      BL       LCDClearChars
+    416                   
+    417                   u8PointToNextMole++;
+   \   000001DA   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   000001DE   0x6800             LDR      R0,[R0, #+0]
+   \   000001E0   0x1C40             ADDS     R0,R0,#+1
+   \   000001E2   0x.... 0x....      LDR.W    R1,??DataTable5_23
+   \   000001E6   0x6008             STR      R0,[R1, #+0]
+    418                }
+    419                if(WasButtonPressed(BUTTON1))
    \                     ??UserAppSM_Idle_8: (+1)
-   \   000001E2   0x2001             MOVS     R0,#+1
-   \   000001E4   0x.... 0x....      BL       WasButtonPressed
-   \   000001E8   0x2800             CMP      R0,#+0
-   \   000001EA   0xD036             BEQ.N    ??UserAppSM_Idle_11
-    419                {
-    420                   ButtonAcknowledge(BUTTON1);
-   \   000001EC   0x2001             MOVS     R0,#+1
-   \   000001EE   0x.... 0x....      BL       ButtonAcknowledge
-    421                   if(*u8PointToNextMole == 6)
-   \   000001F2   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   000001F6   0x6800             LDR      R0,[R0, #+0]
-   \   000001F8   0x7800             LDRB     R0,[R0, #+0]
-   \   000001FA   0x2806             CMP      R0,#+6
-   \   000001FC   0xD11F             BNE.N    ??UserAppSM_Idle_12
-    422                   {
-    423                     u8CountForBit++;
-   \   000001FE   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   00000202   0x7800             LDRB     R0,[R0, #+0]
-   \   00000204   0x1C40             ADDS     R0,R0,#+1
-   \   00000206   0x.... 0x....      LDR.W    R1,??DataTable5_24
-   \   0000020A   0x7008             STRB     R0,[R1, #+0]
-    424                     LedOn(GREEN);
-   \   0000020C   0x2004             MOVS     R0,#+4
-   \   0000020E   0x.... 0x....      BL       LedOn
-    425                     NumberToAscii(u8CountForBit,u8tempfordisplay);
-   \   00000212   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   00000216   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   0000021A   0x7800             LDRB     R0,[R0, #+0]
-   \   0000021C   0x.... 0x....      BL       NumberToAscii
-    426                     LCDClearChars(LINE1_START_ADDR+19,2);
-   \   00000220   0x2102             MOVS     R1,#+2
-   \   00000222   0x2013             MOVS     R0,#+19
-   \   00000224   0x.... 0x....      BL       LCDClearChars
-    427                     LCDMessage(LINE1_START_ADDR+14,"Num:");
-   \   00000228   0x.... 0x....      LDR.W    R1,??DataTable5_26
-   \   0000022C   0x200E             MOVS     R0,#+14
-   \   0000022E   0x.... 0x....      BL       LCDMessage
-    428                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
-   \   00000232   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   00000236   0x2012             MOVS     R0,#+18
-   \   00000238   0x.... 0x....      BL       LCDMessage
-   \   0000023C   0xE002             B.N      ??UserAppSM_Idle_13
-    429                   }
-    430                   else
-    431                   {
-    432                     LedOn(RED);
+   \   000001E8   0x2001             MOVS     R0,#+1
+   \   000001EA   0x.... 0x....      BL       WasButtonPressed
+   \   000001EE   0x2800             CMP      R0,#+0
+   \   000001F0   0xD036             BEQ.N    ??UserAppSM_Idle_11
+    420                {
+    421                   ButtonAcknowledge(BUTTON1);
+   \   000001F2   0x2001             MOVS     R0,#+1
+   \   000001F4   0x.... 0x....      BL       ButtonAcknowledge
+    422                   if(*u8PointToNextMole == 6)
+   \   000001F8   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   000001FC   0x6800             LDR      R0,[R0, #+0]
+   \   000001FE   0x7800             LDRB     R0,[R0, #+0]
+   \   00000200   0x2806             CMP      R0,#+6
+   \   00000202   0xD11F             BNE.N    ??UserAppSM_Idle_12
+    423                   {
+    424                     u8CountForBit++;
+   \   00000204   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   00000208   0x7800             LDRB     R0,[R0, #+0]
+   \   0000020A   0x1C40             ADDS     R0,R0,#+1
+   \   0000020C   0x.... 0x....      LDR.W    R1,??DataTable5_24
+   \   00000210   0x7008             STRB     R0,[R1, #+0]
+    425                     LedOn(GREEN);
+   \   00000212   0x2004             MOVS     R0,#+4
+   \   00000214   0x.... 0x....      BL       LedOn
+    426                     NumberToAscii(u8CountForBit,u8tempfordisplay);
+   \   00000218   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   0000021C   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   00000220   0x7800             LDRB     R0,[R0, #+0]
+   \   00000222   0x.... 0x....      BL       NumberToAscii
+    427                     LCDClearChars(LINE1_START_ADDR+19,2);
+   \   00000226   0x2102             MOVS     R1,#+2
+   \   00000228   0x2013             MOVS     R0,#+19
+   \   0000022A   0x.... 0x....      BL       LCDClearChars
+    428                     LCDMessage(LINE1_START_ADDR+14,"Num:");
+   \   0000022E   0x.... 0x....      LDR.W    R1,??DataTable5_26
+   \   00000232   0x200E             MOVS     R0,#+14
+   \   00000234   0x.... 0x....      BL       LCDMessage
+    429                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
+   \   00000238   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   0000023C   0x2012             MOVS     R0,#+18
+   \   0000023E   0x.... 0x....      BL       LCDMessage
+   \   00000242   0xE002             B.N      ??UserAppSM_Idle_13
+    430                   }
+    431                   else
+    432                   {
+    433                     LedOn(RED);
    \                     ??UserAppSM_Idle_12: (+1)
-   \   0000023E   0x2007             MOVS     R0,#+7
-   \   00000240   0x.... 0x....      BL       LedOn
-    433                   }
-    434                   LCDClearChars(LINE2_START_ADDR,20);
+   \   00000244   0x2007             MOVS     R0,#+7
+   \   00000246   0x.... 0x....      BL       LedOn
+    434                   }
+    435                   LCDClearChars(LINE2_START_ADDR,20);
    \                     ??UserAppSM_Idle_13: (+1)
-   \   00000244   0x2114             MOVS     R1,#+20
-   \   00000246   0x2040             MOVS     R0,#+64
-   \   00000248   0x.... 0x....      BL       LCDClearChars
-    435                   
-    436                   u8PointToNextMole++;
-   \   0000024C   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   00000250   0x6800             LDR      R0,[R0, #+0]
-   \   00000252   0x1C40             ADDS     R0,R0,#+1
-   \   00000254   0x.... 0x....      LDR.W    R1,??DataTable5_23
-   \   00000258   0x6008             STR      R0,[R1, #+0]
-    437                }
-    438                if(WasButtonPressed(BUTTON2))
+   \   0000024A   0x2114             MOVS     R1,#+20
+   \   0000024C   0x2040             MOVS     R0,#+64
+   \   0000024E   0x.... 0x....      BL       LCDClearChars
+    436                   
+    437                   u8PointToNextMole++;
+   \   00000252   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   00000256   0x6800             LDR      R0,[R0, #+0]
+   \   00000258   0x1C40             ADDS     R0,R0,#+1
+   \   0000025A   0x.... 0x....      LDR.W    R1,??DataTable5_23
+   \   0000025E   0x6008             STR      R0,[R1, #+0]
+    438                }
+    439                if(WasButtonPressed(BUTTON2))
    \                     ??UserAppSM_Idle_11: (+1)
-   \   0000025A   0x2002             MOVS     R0,#+2
-   \   0000025C   0x.... 0x....      BL       WasButtonPressed
-   \   00000260   0x2800             CMP      R0,#+0
-   \   00000262   0xD036             BEQ.N    ??UserAppSM_Idle_14
-    439                {
-    440                   ButtonAcknowledge(BUTTON2);
-   \   00000264   0x2002             MOVS     R0,#+2
-   \   00000266   0x.... 0x....      BL       ButtonAcknowledge
-    441                   if(*u8PointToNextMole == 13)
-   \   0000026A   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   0000026E   0x6800             LDR      R0,[R0, #+0]
-   \   00000270   0x7800             LDRB     R0,[R0, #+0]
-   \   00000272   0x280D             CMP      R0,#+13
-   \   00000274   0xD11F             BNE.N    ??UserAppSM_Idle_15
-    442                   {
-    443                     u8CountForBit++;
-   \   00000276   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   0000027A   0x7800             LDRB     R0,[R0, #+0]
-   \   0000027C   0x1C40             ADDS     R0,R0,#+1
-   \   0000027E   0x.... 0x....      LDR.W    R1,??DataTable5_24
-   \   00000282   0x7008             STRB     R0,[R1, #+0]
-    444                     LedOn(GREEN);
-   \   00000284   0x2004             MOVS     R0,#+4
-   \   00000286   0x.... 0x....      BL       LedOn
-    445                     NumberToAscii(u8CountForBit,u8tempfordisplay);
-   \   0000028A   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   0000028E   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   00000292   0x7800             LDRB     R0,[R0, #+0]
-   \   00000294   0x.... 0x....      BL       NumberToAscii
-    446                     LCDClearChars(LINE1_START_ADDR+19,2);
-   \   00000298   0x2102             MOVS     R1,#+2
-   \   0000029A   0x2013             MOVS     R0,#+19
-   \   0000029C   0x.... 0x....      BL       LCDClearChars
-    447                     LCDMessage(LINE1_START_ADDR+14,"Num:");
-   \   000002A0   0x.... 0x....      LDR.W    R1,??DataTable5_26
-   \   000002A4   0x200E             MOVS     R0,#+14
-   \   000002A6   0x.... 0x....      BL       LCDMessage
-    448                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
-   \   000002AA   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   000002AE   0x2012             MOVS     R0,#+18
-   \   000002B0   0x.... 0x....      BL       LCDMessage
-   \   000002B4   0xE002             B.N      ??UserAppSM_Idle_16
-    449                   }
-    450                   else
-    451                   {
-    452                     LedOn(RED);
+   \   00000260   0x2002             MOVS     R0,#+2
+   \   00000262   0x.... 0x....      BL       WasButtonPressed
+   \   00000266   0x2800             CMP      R0,#+0
+   \   00000268   0xD036             BEQ.N    ??UserAppSM_Idle_14
+    440                {
+    441                   ButtonAcknowledge(BUTTON2);
+   \   0000026A   0x2002             MOVS     R0,#+2
+   \   0000026C   0x.... 0x....      BL       ButtonAcknowledge
+    442                   if(*u8PointToNextMole == 13)
+   \   00000270   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   00000274   0x6800             LDR      R0,[R0, #+0]
+   \   00000276   0x7800             LDRB     R0,[R0, #+0]
+   \   00000278   0x280D             CMP      R0,#+13
+   \   0000027A   0xD11F             BNE.N    ??UserAppSM_Idle_15
+    443                   {
+    444                     u8CountForBit++;
+   \   0000027C   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   00000280   0x7800             LDRB     R0,[R0, #+0]
+   \   00000282   0x1C40             ADDS     R0,R0,#+1
+   \   00000284   0x.... 0x....      LDR.W    R1,??DataTable5_24
+   \   00000288   0x7008             STRB     R0,[R1, #+0]
+    445                     LedOn(GREEN);
+   \   0000028A   0x2004             MOVS     R0,#+4
+   \   0000028C   0x.... 0x....      BL       LedOn
+    446                     NumberToAscii(u8CountForBit,u8tempfordisplay);
+   \   00000290   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   00000294   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   00000298   0x7800             LDRB     R0,[R0, #+0]
+   \   0000029A   0x.... 0x....      BL       NumberToAscii
+    447                     LCDClearChars(LINE1_START_ADDR+19,2);
+   \   0000029E   0x2102             MOVS     R1,#+2
+   \   000002A0   0x2013             MOVS     R0,#+19
+   \   000002A2   0x.... 0x....      BL       LCDClearChars
+    448                     LCDMessage(LINE1_START_ADDR+14,"Num:");
+   \   000002A6   0x.... 0x....      LDR.W    R1,??DataTable5_26
+   \   000002AA   0x200E             MOVS     R0,#+14
+   \   000002AC   0x.... 0x....      BL       LCDMessage
+    449                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
+   \   000002B0   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   000002B4   0x2012             MOVS     R0,#+18
+   \   000002B6   0x.... 0x....      BL       LCDMessage
+   \   000002BA   0xE002             B.N      ??UserAppSM_Idle_16
+    450                   }
+    451                   else
+    452                   {
+    453                     LedOn(RED);
    \                     ??UserAppSM_Idle_15: (+1)
-   \   000002B6   0x2007             MOVS     R0,#+7
-   \   000002B8   0x.... 0x....      BL       LedOn
-    453                   }
-    454                   LCDClearChars(LINE2_START_ADDR,20);
+   \   000002BC   0x2007             MOVS     R0,#+7
+   \   000002BE   0x.... 0x....      BL       LedOn
+    454                   }
+    455                   LCDClearChars(LINE2_START_ADDR,20);
    \                     ??UserAppSM_Idle_16: (+1)
-   \   000002BC   0x2114             MOVS     R1,#+20
-   \   000002BE   0x2040             MOVS     R0,#+64
-   \   000002C0   0x.... 0x....      BL       LCDClearChars
-    455                   
-    456                   u8PointToNextMole++;
-   \   000002C4   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   000002C8   0x6800             LDR      R0,[R0, #+0]
-   \   000002CA   0x1C40             ADDS     R0,R0,#+1
-   \   000002CC   0x.... 0x....      LDR.W    R1,??DataTable5_23
-   \   000002D0   0x6008             STR      R0,[R1, #+0]
-    457                }
-    458                if(WasButtonPressed(BUTTON3))
+   \   000002C2   0x2114             MOVS     R1,#+20
+   \   000002C4   0x2040             MOVS     R0,#+64
+   \   000002C6   0x.... 0x....      BL       LCDClearChars
+    456                   
+    457                   u8PointToNextMole++;
+   \   000002CA   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   000002CE   0x6800             LDR      R0,[R0, #+0]
+   \   000002D0   0x1C40             ADDS     R0,R0,#+1
+   \   000002D2   0x.... 0x....      LDR.W    R1,??DataTable5_23
+   \   000002D6   0x6008             STR      R0,[R1, #+0]
+    458                }
+    459                if(WasButtonPressed(BUTTON3))
    \                     ??UserAppSM_Idle_14: (+1)
-   \   000002D2   0x2003             MOVS     R0,#+3
-   \   000002D4   0x.... 0x....      BL       WasButtonPressed
-   \   000002D8   0x2800             CMP      R0,#+0
-   \   000002DA   0xD036             BEQ.N    ??UserAppSM_Idle_6
-    459                {
-    460                   ButtonAcknowledge(BUTTON3);
-   \   000002DC   0x2003             MOVS     R0,#+3
-   \   000002DE   0x.... 0x....      BL       ButtonAcknowledge
-    461                   if(*u8PointToNextMole == 19)
-   \   000002E2   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   000002E6   0x6800             LDR      R0,[R0, #+0]
-   \   000002E8   0x7800             LDRB     R0,[R0, #+0]
-   \   000002EA   0x2813             CMP      R0,#+19
-   \   000002EC   0xD11F             BNE.N    ??UserAppSM_Idle_17
-    462                   {
-    463                     u8CountForBit++;
-   \   000002EE   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   000002F2   0x7800             LDRB     R0,[R0, #+0]
-   \   000002F4   0x1C40             ADDS     R0,R0,#+1
-   \   000002F6   0x.... 0x....      LDR.W    R1,??DataTable5_24
-   \   000002FA   0x7008             STRB     R0,[R1, #+0]
-    464                     LedOn(GREEN);
-   \   000002FC   0x2004             MOVS     R0,#+4
-   \   000002FE   0x.... 0x....      BL       LedOn
-    465                     NumberToAscii(u8CountForBit,u8tempfordisplay);
-   \   00000302   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   00000306   0x.... 0x....      LDR.W    R0,??DataTable5_24
-   \   0000030A   0x7800             LDRB     R0,[R0, #+0]
-   \   0000030C   0x.... 0x....      BL       NumberToAscii
-    466                     LCDClearChars(LINE1_START_ADDR+19,2);
-   \   00000310   0x2102             MOVS     R1,#+2
-   \   00000312   0x2013             MOVS     R0,#+19
-   \   00000314   0x.... 0x....      BL       LCDClearChars
-    467                     LCDMessage(LINE1_START_ADDR+14,"Num:");
-   \   00000318   0x.... 0x....      LDR.W    R1,??DataTable5_26
-   \   0000031C   0x200E             MOVS     R0,#+14
-   \   0000031E   0x.... 0x....      BL       LCDMessage
-    468                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
-   \   00000322   0x.... 0x....      LDR.W    R1,??DataTable5_25
-   \   00000326   0x2012             MOVS     R0,#+18
-   \   00000328   0x.... 0x....      BL       LCDMessage
-   \   0000032C   0xE002             B.N      ??UserAppSM_Idle_18
-    469                   }
-    470                   else
-    471                   {
-    472                     LedOn(RED);
+   \   000002D8   0x2003             MOVS     R0,#+3
+   \   000002DA   0x.... 0x....      BL       WasButtonPressed
+   \   000002DE   0x2800             CMP      R0,#+0
+   \   000002E0   0xD036             BEQ.N    ??UserAppSM_Idle_6
+    460                {
+    461                   ButtonAcknowledge(BUTTON3);
+   \   000002E2   0x2003             MOVS     R0,#+3
+   \   000002E4   0x.... 0x....      BL       ButtonAcknowledge
+    462                   if(*u8PointToNextMole == 19)
+   \   000002E8   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   000002EC   0x6800             LDR      R0,[R0, #+0]
+   \   000002EE   0x7800             LDRB     R0,[R0, #+0]
+   \   000002F0   0x2813             CMP      R0,#+19
+   \   000002F2   0xD11F             BNE.N    ??UserAppSM_Idle_17
+    463                   {
+    464                     u8CountForBit++;
+   \   000002F4   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   000002F8   0x7800             LDRB     R0,[R0, #+0]
+   \   000002FA   0x1C40             ADDS     R0,R0,#+1
+   \   000002FC   0x.... 0x....      LDR.W    R1,??DataTable5_24
+   \   00000300   0x7008             STRB     R0,[R1, #+0]
+    465                     LedOn(GREEN);
+   \   00000302   0x2004             MOVS     R0,#+4
+   \   00000304   0x.... 0x....      BL       LedOn
+    466                     NumberToAscii(u8CountForBit,u8tempfordisplay);
+   \   00000308   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   0000030C   0x.... 0x....      LDR.W    R0,??DataTable5_24
+   \   00000310   0x7800             LDRB     R0,[R0, #+0]
+   \   00000312   0x.... 0x....      BL       NumberToAscii
+    467                     LCDClearChars(LINE1_START_ADDR+19,2);
+   \   00000316   0x2102             MOVS     R1,#+2
+   \   00000318   0x2013             MOVS     R0,#+19
+   \   0000031A   0x.... 0x....      BL       LCDClearChars
+    468                     LCDMessage(LINE1_START_ADDR+14,"Num:");
+   \   0000031E   0x.... 0x....      LDR.W    R1,??DataTable5_26
+   \   00000322   0x200E             MOVS     R0,#+14
+   \   00000324   0x.... 0x....      BL       LCDMessage
+    469                     LCDMessage(LINE1_START_ADDR+18,u8tempfordisplay);
+   \   00000328   0x.... 0x....      LDR.W    R1,??DataTable5_25
+   \   0000032C   0x2012             MOVS     R0,#+18
+   \   0000032E   0x.... 0x....      BL       LCDMessage
+   \   00000332   0xE002             B.N      ??UserAppSM_Idle_18
+    470                   }
+    471                   else
+    472                   {
+    473                     LedOn(RED);
    \                     ??UserAppSM_Idle_17: (+1)
-   \   0000032E   0x2007             MOVS     R0,#+7
-   \   00000330   0x.... 0x....      BL       LedOn
-    473                   }
-    474                   LCDClearChars(LINE2_START_ADDR,20);
+   \   00000334   0x2007             MOVS     R0,#+7
+   \   00000336   0x.... 0x....      BL       LedOn
+    474                   }
+    475                   LCDClearChars(LINE2_START_ADDR,20);
    \                     ??UserAppSM_Idle_18: (+1)
-   \   00000334   0x2114             MOVS     R1,#+20
-   \   00000336   0x2040             MOVS     R0,#+64
-   \   00000338   0x.... 0x....      BL       LCDClearChars
-    475                   
-    476                   u8PointToNextMole++;
-   \   0000033C   0x.... 0x....      LDR.W    R0,??DataTable5_23
-   \   00000340   0x6800             LDR      R0,[R0, #+0]
-   \   00000342   0x1C40             ADDS     R0,R0,#+1
-   \   00000344   0x.... 0x....      LDR.W    R1,??DataTable5_23
-   \   00000348   0x6008             STR      R0,[R1, #+0]
-    477                }
-    478                
+   \   0000033A   0x2114             MOVS     R1,#+20
+   \   0000033C   0x2040             MOVS     R0,#+64
+   \   0000033E   0x.... 0x....      BL       LCDClearChars
+    476                   
+    477                   u8PointToNextMole++;
+   \   00000342   0x.... 0x....      LDR.W    R0,??DataTable5_23
+   \   00000346   0x6800             LDR      R0,[R0, #+0]
+   \   00000348   0x1C40             ADDS     R0,R0,#+1
+   \   0000034A   0x.... 0x....      LDR.W    R1,??DataTable5_23
+   \   0000034E   0x6008             STR      R0,[R1, #+0]
+    478                }
     479                
     480                
-    481              }
-    482             
-    483              //Game Clock Down &&u8count == 50
-    484              for(u8 i=1;i<11;i++)
+    481                
+    482              }
+    483             
+    484              //Game Clock Down &&u8count == 50
+    485              for(u8 i=1;i<11;i++)
    \                     ??UserAppSM_Idle_6: (+1)
-   \   0000034A   0x2001             MOVS     R0,#+1
+   \   00000350   0x2001             MOVS     R0,#+1
    \                     ??UserAppSM_Idle_19: (+1)
-   \   0000034C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000034E   0x280B             CMP      R0,#+11
-   \   00000350   0xDA1C             BGE.N    ??UserAppSM_Idle_20
-    485              {
-    486                if(u32ClockDownForGame == 1000*i)
-   \   00000352   0x....             LDR.N    R1,??DataTable5_15
-   \   00000354   0x6809             LDR      R1,[R1, #+0]
-   \   00000356   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   00000358   0xF44F 0x727A      MOV      R2,#+1000
-   \   0000035C   0xFB02 0xF200      MUL      R2,R2,R0
-   \   00000360   0x4291             CMP      R1,R2
-   \   00000362   0xD111             BNE.N    ??UserAppSM_Idle_21
-    487                {
-    488                  if(flag == 1)
-   \   00000364   0x....             LDR.N    R0,??DataTable5_19
-   \   00000366   0x7800             LDRB     R0,[R0, #+0]
-   \   00000368   0x2801             CMP      R0,#+1
-   \   0000036A   0xD10C             BNE.N    ??UserAppSM_Idle_22
-    489                  {
-    490                    LCDClearChars(LINE1_START_ADDR+10,4);
-   \   0000036C   0x2104             MOVS     R1,#+4
-   \   0000036E   0x200A             MOVS     R0,#+10
-   \   00000370   0x.... 0x....      BL       LCDClearChars
-    491                    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
-   \   00000374   0x....             LDR.N    R1,??DataTable5_21
-   \   00000376   0x200A             MOVS     R0,#+10
-   \   00000378   0x.... 0x....      BL       LCDMessage
-    492                    u8clockdown[1]=u8clockdown[1]-1;
-   \   0000037C   0x....             LDR.N    R0,??DataTable5_21
-   \   0000037E   0x7840             LDRB     R0,[R0, #+1]
-   \   00000380   0x1E40             SUBS     R0,R0,#+1
-   \   00000382   0x....             LDR.N    R1,??DataTable5_21
-   \   00000384   0x7048             STRB     R0,[R1, #+1]
-    493                  }
-    494                  break;
+   \   00000352   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000354   0x280B             CMP      R0,#+11
+   \   00000356   0xDA1C             BGE.N    ??UserAppSM_Idle_20
+    486              {
+    487                if(u32ClockDownForGame == 1000*i)
+   \   00000358   0x....             LDR.N    R1,??DataTable5_15
+   \   0000035A   0x6809             LDR      R1,[R1, #+0]
+   \   0000035C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000035E   0xF44F 0x727A      MOV      R2,#+1000
+   \   00000362   0xFB02 0xF200      MUL      R2,R2,R0
+   \   00000366   0x4291             CMP      R1,R2
+   \   00000368   0xD111             BNE.N    ??UserAppSM_Idle_21
+    488                {
+    489                  if(flag == 1)
+   \   0000036A   0x....             LDR.N    R0,??DataTable5_19
+   \   0000036C   0x7800             LDRB     R0,[R0, #+0]
+   \   0000036E   0x2801             CMP      R0,#+1
+   \   00000370   0xD10C             BNE.N    ??UserAppSM_Idle_22
+    490                  {
+    491                    LCDClearChars(LINE1_START_ADDR+10,4);
+   \   00000372   0x2104             MOVS     R1,#+4
+   \   00000374   0x200A             MOVS     R0,#+10
+   \   00000376   0x.... 0x....      BL       LCDClearChars
+    492                    LCDMessage(LINE1_START_ADDR+10,u8clockdown);
+   \   0000037A   0x....             LDR.N    R1,??DataTable5_21
+   \   0000037C   0x200A             MOVS     R0,#+10
+   \   0000037E   0x.... 0x....      BL       LCDMessage
+    493                    u8clockdown[1]=u8clockdown[1]-1;
+   \   00000382   0x....             LDR.N    R0,??DataTable5_21
+   \   00000384   0x7840             LDRB     R0,[R0, #+1]
+   \   00000386   0x1E40             SUBS     R0,R0,#+1
+   \   00000388   0x....             LDR.N    R1,??DataTable5_21
+   \   0000038A   0x7048             STRB     R0,[R1, #+1]
+    494                  }
+    495                  break;
    \                     ??UserAppSM_Idle_22: (+1)
-   \   00000386   0xE001             B.N      ??UserAppSM_Idle_20
-    495                }
-    496              }
+   \   0000038C   0xE001             B.N      ??UserAppSM_Idle_20
+    496                }
+    497              }
    \                     ??UserAppSM_Idle_21: (+1)
-   \   00000388   0x1C40             ADDS     R0,R0,#+1
-   \   0000038A   0xE7DF             B.N      ??UserAppSM_Idle_19
-    497              
-    498              //Game End
-    499              if(u32ClockDownForGame == 10000)
+   \   0000038E   0x1C40             ADDS     R0,R0,#+1
+   \   00000390   0xE7DF             B.N      ??UserAppSM_Idle_19
+    498              
+    499              //Game End
+    500              if(u32ClockDownForGame == 10000)
    \                     ??UserAppSM_Idle_20: (+1)
-   \   0000038C   0x....             LDR.N    R0,??DataTable5_15
-   \   0000038E   0x6800             LDR      R0,[R0, #+0]
-   \   00000390   0xF242 0x7110      MOVW     R1,#+10000
-   \   00000394   0x4288             CMP      R0,R1
-   \   00000396   0xD116             BNE.N    ??UserAppSM_Idle_23
-    500              {
-    501                flag = 0;
+   \   00000392   0x....             LDR.N    R0,??DataTable5_15
+   \   00000394   0x6800             LDR      R0,[R0, #+0]
+   \   00000396   0xF242 0x7110      MOVW     R1,#+10000
+   \   0000039A   0x4288             CMP      R0,R1
+   \   0000039C   0xD113             BNE.N    ??UserAppSM_Idle_23
+    501              {
+    502                flag = 0;
                             ^
 Warning[Pe188]: enumerated type mixed with another type
-   \   00000398   0x2000             MOVS     R0,#+0
-   \   0000039A   0x....             LDR.N    R1,??DataTable5_19
-   \   0000039C   0x7008             STRB     R0,[R1, #+0]
-    502                LCDClearChars(LINE2_START_ADDR, 20);
-   \   0000039E   0x2114             MOVS     R1,#+20
-   \   000003A0   0x2040             MOVS     R0,#+64
-   \   000003A2   0x.... 0x....      BL       LCDClearChars
-    503                LCDMessage(LINE2_START_ADDR, "TIME OUT!");
-   \   000003A6   0x....             LDR.N    R1,??DataTable5_27
-   \   000003A8   0x2040             MOVS     R0,#+64
-   \   000003AA   0x.... 0x....      BL       LCDMessage
-    504                LedOff(GREEN);
-   \   000003AE   0x2004             MOVS     R0,#+4
-   \   000003B0   0x.... 0x....      BL       LedOff
-    505                LedOff(RED);
-   \   000003B4   0x2007             MOVS     R0,#+7
+   \   0000039E   0x2000             MOVS     R0,#+0
+   \   000003A0   0x....             LDR.N    R1,??DataTable5_19
+   \   000003A2   0x7008             STRB     R0,[R1, #+0]
+    503                LCDClearChars(LINE2_START_ADDR, 20);
+   \   000003A4   0x2114             MOVS     R1,#+20
+   \   000003A6   0x2040             MOVS     R0,#+64
+   \   000003A8   0x.... 0x....      BL       LCDClearChars
+    504                LCDMessage(LINE2_START_ADDR, "TIME OUT!");
+   \   000003AC   0x....             LDR.N    R1,??DataTable5_27
+   \   000003AE   0x2040             MOVS     R0,#+64
+   \   000003B0   0x.... 0x....      BL       LCDMessage
+    505                LedOff(GREEN);
+   \   000003B4   0x2004             MOVS     R0,#+4
    \   000003B6   0x.... 0x....      BL       LedOff
-    506                LedOff(BLUE);
-   \   000003BA   0x2002             MOVS     R0,#+2
+    506                LedOff(RED);
+   \   000003BA   0x2007             MOVS     R0,#+7
    \   000003BC   0x.... 0x....      BL       LedOff
-    507                /*AntCloseChannel();*/
-    508                LedOn(YELLOW);
-   \   000003C0   0x2005             MOVS     R0,#+5
-   \   000003C2   0x.... 0x....      BL       LedOn
-    509              }
-    510              if(u32ClockDownForGame > 11500)
+    507                LedOff(BLUE);
+   \   000003C0   0x2002             MOVS     R0,#+2
+   \   000003C2   0x.... 0x....      BL       LedOff
+    508                /*AntCloseChannel();*/
+    509                //LedOn(YELLOW);
+    510              }
+    511              if(u32ClockDownForGame > 11500)
    \                     ??UserAppSM_Idle_23: (+1)
    \   000003C6   0x....             LDR.N    R0,??DataTable5_15
    \   000003C8   0x6800             LDR      R0,[R0, #+0]
    \   000003CA   0xF642 0x41ED      MOVW     R1,#+11501
    \   000003CE   0x4288             CMP      R0,R1
    \   000003D0   0xD336             BCC.N    ??UserAppSM_Idle_24
-    511              {
-    512                u32ClockDownForGame = 10150;
+    512              {
+    513                u32ClockDownForGame = 10150;
    \   000003D2   0xF242 0x70A6      MOVW     R0,#+10150
    \   000003D6   0x....             LDR.N    R1,??DataTable5_15
    \   000003D8   0x6008             STR      R0,[R1, #+0]
-    513                if(u8CountForBit > (au8Receive[0]-48)*16+au8Receive[1]-48)
+    514                if(u8CountForBit > (au8Receive[0]-48)*16+au8Receive[1]-48)
    \   000003DA   0x....             LDR.N    R0,??DataTable5_28
    \   000003DC   0x7800             LDRB     R0,[R0, #+0]
    \   000003DE   0x....             LDR.N    R1,??DataTable5_28
@@ -1392,20 +1393,20 @@ Warning[Pe188]: enumerated type mixed with another type
    \   000003EC   0x7809             LDRB     R1,[R1, #+0]
    \   000003EE   0x4288             CMP      R0,R1
    \   000003F0   0xDA07             BGE.N    ??UserAppSM_Idle_25
-    514                {
-    515                  LCDMessage(LINE1_START_ADDR, "You are the winner !");
+    515                {
+    516                  LCDMessage(LINE1_START_ADDR, "You are the winner !");
    \   000003F2   0x....             LDR.N    R1,??DataTable5_29
    \   000003F4   0x2000             MOVS     R0,#+0
    \   000003F6   0x.... 0x....      BL       LCDMessage
-    516                  FlagW = 1;
+    517                  FlagW = 1;
                                ^
 Warning[Pe188]: enumerated type mixed with another type
    \   000003FA   0x2001             MOVS     R0,#+1
    \   000003FC   0x....             LDR.N    R1,??DataTable5_30
    \   000003FE   0x7008             STRB     R0,[R1, #+0]
    \   00000400   0xE01A             B.N      ??UserAppSM_Idle_26
-    517                }
-    518                else if(u8CountForBit < (au8Receive[0]-48)*16+au8Receive[1]-48)
+    518                }
+    519                else if(u8CountForBit < (au8Receive[0]-48)*16+au8Receive[1]-48)
    \                     ??UserAppSM_Idle_25: (+1)
    \   00000402   0x....             LDR.N    R0,??DataTable5_24
    \   00000404   0x7800             LDRB     R0,[R0, #+0]
@@ -1417,12 +1418,12 @@ Warning[Pe188]: enumerated type mixed with another type
    \   00000412   0xF5B1 0x714C      SUBS     R1,R1,#+816
    \   00000416   0x4288             CMP      R0,R1
    \   00000418   0xDA0A             BGE.N    ??UserAppSM_Idle_27
-    519                {
-    520                  LCDMessage(LINE1_START_ADDR, "You are the loser ! ");
+    520                {
+    521                  LCDMessage(LINE1_START_ADDR, "You are the loser ! ");
    \   0000041A   0x....             LDR.N    R1,??DataTable5_31
    \   0000041C   0x2000             MOVS     R0,#+0
    \   0000041E   0x.... 0x....      BL       LCDMessage
-    521                  FlagL = 1;
+    522                  FlagL = 1;
                                ^
 Warning[Pe188]: enumerated type mixed with another type
    \   00000422   0x2001             MOVS     R0,#+1
@@ -1433,23 +1434,23 @@ Warning[Pe188]: enumerated type mixed with another type
    \                     ??UserAppSM_Idle_7:
    \   0000042C   0x4D 0x00          DC8      "M",0x0,0x0
    \              0x00 0x00    
-    522                }
-    523                else
-    524                {
-    525                  LCDMessage(LINE1_START_ADDR, "Draw!               ");
+    523                }
+    524                else
+    525                {
+    526                  LCDMessage(LINE1_START_ADDR, "Draw!               ");
    \                     ??UserAppSM_Idle_27: (+1)
    \   00000430   0x....             LDR.N    R1,??DataTable5_33
    \   00000432   0x2000             MOVS     R0,#+0
    \   00000434   0x.... 0x....      BL       LCDMessage
-    526                }
-    527                LCDMessage(LINE2_START_ADDR, "Try again by B0      ");
+    527                }
+    528                LCDMessage(LINE2_START_ADDR, "Try again by B0      ");
    \                     ??UserAppSM_Idle_26: (+1)
    \   00000438   0x....             LDR.N    R1,??DataTable5_34
    \   0000043A   0x2040             MOVS     R0,#+64
    \   0000043C   0x.... 0x....      BL       LCDMessage
-    528              }
-    529              //Game Again
-    530              if(WasButtonPressed(BUTTON0)&&flag==0)
+    529              }
+    530              //Game Again
+    531              if(WasButtonPressed(BUTTON0)&&flag==0)
    \                     ??UserAppSM_Idle_24: (+1)
    \   00000440   0x2000             MOVS     R0,#+0
    \   00000442   0x.... 0x....      BL       WasButtonPressed
@@ -1459,287 +1460,284 @@ Warning[Pe188]: enumerated type mixed with another type
    \   0000044C   0x7800             LDRB     R0,[R0, #+0]
    \   0000044E   0x2800             CMP      R0,#+0
    \   00000450   0xD14D             BNE.N    ??UserAppSM_Idle_28
-    531                {
-    532                  ButtonAcknowledge(BUTTON0);
+    532                {
+    533                  ButtonAcknowledge(BUTTON0);
    \   00000452   0x2000             MOVS     R0,#+0
    \   00000454   0x.... 0x....      BL       ButtonAcknowledge
-    533                  LCDCommand(LCD_CLEAR_CMD);
+    534                  LCDCommand(LCD_CLEAR_CMD);
    \   00000458   0x2001             MOVS     R0,#+1
    \   0000045A   0x.... 0x....      BL       LCDCommand
-    534                  u8PointToNextMole=u8NextMole;
+    535                  u8PointToNextMole=u8NextMole;
    \   0000045E   0x....             LDR.N    R0,??DataTable5_35
    \   00000460   0x....             LDR.N    R1,??DataTable5_23
    \   00000462   0x6008             STR      R0,[R1, #+0]
-    535                  u32ClockDownForGame = 0;
+    536                  u32ClockDownForGame = 0;
    \   00000464   0x2000             MOVS     R0,#+0
    \   00000466   0x....             LDR.N    R1,??DataTable5_15
    \   00000468   0x6008             STR      R0,[R1, #+0]
-    536                  u16ClockDownForBeginning = 0;
+    537                  u16ClockDownForBeginning = 0;
    \   0000046A   0x2000             MOVS     R0,#+0
    \   0000046C   0x....             LDR.N    R1,??DataTable5_14
    \   0000046E   0x8008             STRH     R0,[R1, #+0]
-    537                  u8ClockDownForBegin[0]='5';
+    538                  u8ClockDownForBegin[0]='5';
    \   00000470   0x2035             MOVS     R0,#+53
    \   00000472   0x....             LDR.N    R1,??DataTable5_18
    \   00000474   0x7008             STRB     R0,[R1, #+0]
-    538                  u8clockdown[0]='1';
+    539                  u8clockdown[0]='1';
    \   00000476   0x2031             MOVS     R0,#+49
    \   00000478   0x....             LDR.N    R1,??DataTable5_21
    \   0000047A   0x7008             STRB     R0,[R1, #+0]
-    539                  u8clockdown[1]='0';
+    540                  u8clockdown[1]='0';
    \   0000047C   0x2030             MOVS     R0,#+48
    \   0000047E   0x....             LDR.N    R1,??DataTable5_21
    \   00000480   0x7048             STRB     R0,[R1, #+1]
-    540                  FlagForGame =0;
+    541                  FlagForGame =0;
                                      ^
 Warning[Pe188]: enumerated type mixed with another type
    \   00000482   0x2000             MOVS     R0,#+0
    \   00000484   0x....             LDR.N    R1,??DataTable5_13
    \   00000486   0x7008             STRB     R0,[R1, #+0]
-    541                  u8count=0;
+    542                  u8count=0;
    \   00000488   0x2000             MOVS     R0,#+0
    \   0000048A   0x....             LDR.N    R1,??DataTable5_16
    \   0000048C   0x7008             STRB     R0,[R1, #+0]
-    542                  u8CountForBit = 0;
+    543                  u8CountForBit = 0;
    \   0000048E   0x2000             MOVS     R0,#+0
    \   00000490   0x....             LDR.N    R1,??DataTable5_24
    \   00000492   0x7008             STRB     R0,[R1, #+0]
-    543                  FlagW = 0;
+    544                  FlagW = 0;
                                ^
 Warning[Pe188]: enumerated type mixed with another type
    \   00000494   0x2000             MOVS     R0,#+0
    \   00000496   0x....             LDR.N    R1,??DataTable5_30
    \   00000498   0x7008             STRB     R0,[R1, #+0]
-    544                  FlagL = 0;
+    545                  FlagL = 0;
                                ^
 Warning[Pe188]: enumerated type mixed with another type
    \   0000049A   0x2000             MOVS     R0,#+0
    \   0000049C   0x....             LDR.N    R1,??DataTable5_32
    \   0000049E   0x7008             STRB     R0,[R1, #+0]
-    545                  flagsend = 0;
+    546                  flagsend = 0;
                                   ^
 Warning[Pe188]: enumerated type mixed with another type
    \   000004A0   0x2000             MOVS     R0,#+0
    \   000004A2   0x....             LDR.N    R1,??DataTable5_36
    \   000004A4   0x7008             STRB     R0,[R1, #+0]
-    546                  PWMAudioOff(BUZZER1);
+    547                  PWMAudioOff(BUZZER1);
    \   000004A6   0x2001             MOVS     R0,#+1
    \   000004A8   0x.... 0x....      BL       PWMAudioOff
-    547                  LedOff(WHITE);
+    548                  LedOff(WHITE);
    \   000004AC   0x2000             MOVS     R0,#+0
    \   000004AE   0x.... 0x....      BL       LedOff
-    548                  LedOff(PURPLE);
+    549                  LedOff(PURPLE);
    \   000004B2   0x2001             MOVS     R0,#+1
    \   000004B4   0x.... 0x....      BL       LedOff
-    549                  LedOff(BLUE);
+    550                  LedOff(BLUE);
    \   000004B8   0x2002             MOVS     R0,#+2
    \   000004BA   0x.... 0x....      BL       LedOff
-    550                  LedOff(CYAN);
+    551                  LedOff(CYAN);
    \   000004BE   0x2003             MOVS     R0,#+3
    \   000004C0   0x.... 0x....      BL       LedOff
-    551                  LedOff(GREEN);
+    552                  LedOff(GREEN);
    \   000004C4   0x2004             MOVS     R0,#+4
    \   000004C6   0x.... 0x....      BL       LedOff
-    552                  LedOff(YELLOW);
+    553                  LedOff(YELLOW);
    \   000004CA   0x2005             MOVS     R0,#+5
    \   000004CC   0x.... 0x....      BL       LedOff
-    553                  LedOff(ORANGE);
+    554                  LedOff(ORANGE);
    \   000004D0   0x2006             MOVS     R0,#+6
    \   000004D2   0x.... 0x....      BL       LedOff
-    554                  LedOff(RED);
+    555                  LedOff(RED);
    \   000004D6   0x2007             MOVS     R0,#+7
    \   000004D8   0x.... 0x....      BL       LedOff
-    555                  LCDMessage(LINE1_START_ADDR, "Wait for a player..");
+    556                  LCDMessage(LINE1_START_ADDR, "Wait for a player..");
    \   000004DC   0x....             LDR.N    R1,??DataTable5_37
    \   000004DE   0x2000             MOVS     R0,#+0
    \   000004E0   0x.... 0x....      BL       LCDMessage
-    556                  /*AntCloseChannel();
-    557                  LedOff(BLUE);
-    558                  LedOn(YELLOW);*/
-    559                  AntOpenChannel();
+    557                  /*AntCloseChannel();
+    558                  LedOff(BLUE);
+    559                  LedOn(YELLOW);*/
+    560                  AntOpenChannel();
    \   000004E4   0x.... 0x....      BL       AntOpenChannel
-    560                  
-    561                  u8LastState = EVENT_RX_FAIL_GO_TO_SEARCH;
+    561                  
+    562                  u8LastState = EVENT_RX_FAIL_GO_TO_SEARCH;
    \   000004E8   0x2008             MOVS     R0,#+8
    \   000004EA   0x....             LDR.N    R1,??DataTable5_38
    \   000004EC   0x7008             STRB     R0,[R1, #+0]
-    562                }
-    563              if(FlagW == 1)
+    563                }
+    564              if(FlagW == 1)
    \                     ??UserAppSM_Idle_28: (+1)
    \   000004EE   0x....             LDR.N    R0,??DataTable5_30
    \   000004F0   0x7800             LDRB     R0,[R0, #+0]
    \   000004F2   0x2801             CMP      R0,#+1
    \   000004F4   0xD103             BNE.N    ??UserAppSM_Idle_29
-    564              {
-    565                WinnerMusic();
+    565              {
+    566                WinnerMusic();
    \   000004F6   0x.... 0x....      BL       WinnerMusic
-    566                LedFlash();
+    567                LedFlash();
    \   000004FA   0x.... 0x....      BL       LedFlash
-    567              }
-    568              if(FlagL == 1)
+    568              }
+    569              if(FlagL == 1)
    \                     ??UserAppSM_Idle_29: (+1)
    \   000004FE   0x....             LDR.N    R0,??DataTable5_32
    \   00000500   0x7800             LDRB     R0,[R0, #+0]
    \   00000502   0x2801             CMP      R0,#+1
    \   00000504   0xD103             BNE.N    ??UserAppSM_Idle_0
-    569              {
-    570                LoserMusic();
+    570              {
+    571                LoserMusic();
    \   00000506   0x.... 0x....      BL       LoserMusic
-    571                LedFlash();
+    572                LedFlash();
    \   0000050A   0x.... 0x....      BL       LedFlash
-    572              }
-    573            
-    574            }
-    575          
-    576            
-    577            //ANT Part
-    578            //Get the count and send it to another Machine when the count has changed
-    579            au8SendNumber[0] = u8CountForBit;
+    573              }
+    574            
+    575            }
+    576          
+    577            
+    578            //ANT Part
+    579            //Get the count and send it to another Machine when the count has changed
+    580            au8SendNumber[0] = u8CountForBit;
    \                     ??UserAppSM_Idle_0: (+1)
    \   0000050E   0x....             LDR.N    R0,??DataTable5_24
    \   00000510   0x7800             LDRB     R0,[R0, #+0]
    \   00000512   0x....             LDR.N    R1,??DataTable5_39
    \   00000514   0x7008             STRB     R0,[R1, #+0]
-    580            if(au8SendNumber[0] != au8SendNumber[1])
+    581            if(au8SendNumber[0] != au8SendNumber[1])
    \   00000516   0x....             LDR.N    R0,??DataTable5_39
    \   00000518   0x7800             LDRB     R0,[R0, #+0]
    \   0000051A   0x....             LDR.N    R1,??DataTable5_39
    \   0000051C   0x7849             LDRB     R1,[R1, #+1]
    \   0000051E   0x4288             CMP      R0,R1
    \   00000520   0xD002             BEQ.N    ??UserAppSM_Idle_30
-    581            {
-    582              AntQueueBroadcastMessage (au8SendNumber);
+    582            {
+    583              AntQueueBroadcastMessage (au8SendNumber);
    \   00000522   0x....             LDR.N    R0,??DataTable5_39
    \   00000524   0x.... 0x....      BL       AntQueueBroadcastMessage
-    583            }
-    584            au8SendNumber[1] = u8CountForBit;
+    584            }
+    585            au8SendNumber[1] = u8CountForBit;
    \                     ??UserAppSM_Idle_30: (+1)
    \   00000528   0x....             LDR.N    R0,??DataTable5_24
    \   0000052A   0x7800             LDRB     R0,[R0, #+0]
    \   0000052C   0x....             LDR.N    R1,??DataTable5_39
    \   0000052E   0x7048             STRB     R0,[R1, #+1]
-    585            /* Queue open channel and change LED0 from yellow to blinking green to indicate channel is opening */
-    586            /*if(WasButtonPressed(BUTTON0)&&Flag_Button0 == 0)
-    587            {
-    588              ButtonAcknowledge(BUTTON0);
-    589              Flag_Button0 = 1;
-    590              
-    591              AntOpenChannel();
-    592              LedOff(YELLOW);
-    593              LCDClearChars(LINE2_START_ADDR, 20);
-    594              
-    595            }*/
-    596            LedOff(YELLOW);
-   \   00000530   0x2005             MOVS     R0,#+5
-   \   00000532   0x.... 0x....      BL       LedOff
+    586            /* Queue open channel and change LED0 from yellow to blinking green to indicate channel is opening */
+    587            /*if(WasButtonPressed(BUTTON0)&&Flag_Button0 == 0)
+    588            {
+    589              ButtonAcknowledge(BUTTON0);
+    590              Flag_Button0 = 1;
+    591              
+    592              AntOpenChannel();
+    593              LedOff(YELLOW);
+    594              LCDClearChars(LINE2_START_ADDR, 20);
+    595              
+    596            }*/
     597            /* Always check for ANT messages */
     598            if( AntReadData() )
-   \   00000536   0x.... 0x....      BL       AntReadData
-   \   0000053A   0x2800             CMP      R0,#+0
-   \   0000053C   0xD06F             BEQ.N    ??UserAppSM_Idle_31
+   \   00000530   0x.... 0x....      BL       AntReadData
+   \   00000534   0x2800             CMP      R0,#+0
+   \   00000536   0xD06F             BEQ.N    ??UserAppSM_Idle_31
     599            {
     600               /* New data message: check what it is */
     601              if(G_eAntApiCurrentMessageClass == ANT_DATA)
-   \   0000053E   0x....             LDR.N    R0,??DataTable5_40
-   \   00000540   0x7800             LDRB     R0,[R0, #+0]
-   \   00000542   0x2801             CMP      R0,#+1
-   \   00000544   0xD122             BNE.N    ??UserAppSM_Idle_32
+   \   00000538   0x....             LDR.N    R0,??DataTable5_40
+   \   0000053A   0x7800             LDRB     R0,[R0, #+0]
+   \   0000053C   0x2801             CMP      R0,#+1
+   \   0000053E   0xD122             BNE.N    ??UserAppSM_Idle_32
     602              {
     603                /* We got some data: parse it into au8DataContent */
     604                for(u8 i = 0; i < ANT_DATA_BYTES; i++)
-   \   00000546   0x2400             MOVS     R4,#+0
+   \   00000540   0x2400             MOVS     R4,#+0
    \                     ??UserAppSM_Idle_33: (+1)
-   \   00000548   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   0000054A   0x2C08             CMP      R4,#+8
-   \   0000054C   0xDA67             BGE.N    ??UserAppSM_Idle_31
+   \   00000542   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000544   0x2C08             CMP      R4,#+8
+   \   00000546   0xDA67             BGE.N    ??UserAppSM_Idle_31
     605                {
     606                  au8Receive[2 * i]     = HexToASCIICharUpper(G_au8AntApiCurrentData[i] / 16);
-   \   0000054E   0x....             LDR.N    R0,??DataTable5_41
-   \   00000550   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000552   0x5C20             LDRB     R0,[R4, R0]
-   \   00000554   0x2110             MOVS     R1,#+16
-   \   00000556   0xFB90 0xF0F1      SDIV     R0,R0,R1
-   \   0000055A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000055C   0x.... 0x....      BL       HexToASCIICharUpper
-   \   00000560   0x....             LDR.N    R1,??DataTable5_28
-   \   00000562   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000564   0xF801 0x0014      STRB     R0,[R1, R4, LSL #+1]
+   \   00000548   0x....             LDR.N    R0,??DataTable5_41
+   \   0000054A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000054C   0x5C20             LDRB     R0,[R4, R0]
+   \   0000054E   0x2110             MOVS     R1,#+16
+   \   00000550   0xFB90 0xF0F1      SDIV     R0,R0,R1
+   \   00000554   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000556   0x.... 0x....      BL       HexToASCIICharUpper
+   \   0000055A   0x....             LDR.N    R1,??DataTable5_28
+   \   0000055C   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000055E   0xF801 0x0014      STRB     R0,[R1, R4, LSL #+1]
     607                  au8Receive[2 * i + 1] = HexToASCIICharUpper(G_au8AntApiCurrentData[i] % 16);
-   \   00000568   0x....             LDR.N    R0,??DataTable5_41
-   \   0000056A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   0000056C   0x5C21             LDRB     R1,[R4, R0]
-   \   0000056E   0x2210             MOVS     R2,#+16
-   \   00000570   0xFB91 0xF0F2      SDIV     R0,R1,R2
-   \   00000574   0xFB00 0x1012      MLS      R0,R0,R2,R1
-   \   00000578   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000057A   0x.... 0x....      BL       HexToASCIICharUpper
-   \   0000057E   0x....             LDR.N    R1,??DataTable5_28
-   \   00000580   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000582   0xEB11 0x0144      ADDS     R1,R1,R4, LSL #+1
-   \   00000586   0x7048             STRB     R0,[R1, #+1]
+   \   00000562   0x....             LDR.N    R0,??DataTable5_41
+   \   00000564   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000566   0x5C21             LDRB     R1,[R4, R0]
+   \   00000568   0x2210             MOVS     R2,#+16
+   \   0000056A   0xFB91 0xF0F2      SDIV     R0,R1,R2
+   \   0000056E   0xFB00 0x1012      MLS      R0,R0,R2,R1
+   \   00000572   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000574   0x.... 0x....      BL       HexToASCIICharUpper
+   \   00000578   0x....             LDR.N    R1,??DataTable5_28
+   \   0000057A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000057C   0xEB11 0x0144      ADDS     R1,R1,R4, LSL #+1
+   \   00000580   0x7048             STRB     R0,[R1, #+1]
     608                }
-   \   00000588   0x1C64             ADDS     R4,R4,#+1
-   \   0000058A   0xE7DD             B.N      ??UserAppSM_Idle_33
+   \   00000582   0x1C64             ADDS     R4,R4,#+1
+   \   00000584   0xE7DD             B.N      ??UserAppSM_Idle_33
     609              } /* end if(G_eAntApiCurrentMessageClass == ANT_DATA) */
     610          
     611              else if(G_eAntApiCurrentMessageClass == ANT_TICK)
    \                     ??UserAppSM_Idle_32: (+1)
-   \   0000058C   0x....             LDR.N    R0,??DataTable5_40
-   \   0000058E   0x7800             LDRB     R0,[R0, #+0]
-   \   00000590   0x2802             CMP      R0,#+2
-   \   00000592   0xD144             BNE.N    ??UserAppSM_Idle_31
+   \   00000586   0x....             LDR.N    R0,??DataTable5_40
+   \   00000588   0x7800             LDRB     R0,[R0, #+0]
+   \   0000058A   0x2802             CMP      R0,#+2
+   \   0000058C   0xD144             BNE.N    ??UserAppSM_Idle_31
     612              {
     613                /* Look at the TICK contents to check the event code and respond only if it's different */
     614                if(u8LastState != G_au8AntApiCurrentData[ANT_TICK_MSG_EVENT_CODE_INDEX])
-   \   00000594   0x....             LDR.N    R0,??DataTable5_38
-   \   00000596   0x7800             LDRB     R0,[R0, #+0]
-   \   00000598   0x....             LDR.N    R1,??DataTable5_41
-   \   0000059A   0x7849             LDRB     R1,[R1, #+1]
-   \   0000059C   0x4288             CMP      R0,R1
-   \   0000059E   0xD03E             BEQ.N    ??UserAppSM_Idle_31
+   \   0000058E   0x....             LDR.N    R0,??DataTable5_38
+   \   00000590   0x7800             LDRB     R0,[R0, #+0]
+   \   00000592   0x....             LDR.N    R1,??DataTable5_41
+   \   00000594   0x7849             LDRB     R1,[R1, #+1]
+   \   00000596   0x4288             CMP      R0,R1
+   \   00000598   0xD03E             BEQ.N    ??UserAppSM_Idle_31
     615                {
     616                  /* The state changed so update u8LastState and queue a debug message */
     617                  u8LastState = G_au8AntApiCurrentData[ANT_TICK_MSG_EVENT_CODE_INDEX];
-   \   000005A0   0x....             LDR.N    R0,??DataTable5_41
-   \   000005A2   0x7840             LDRB     R0,[R0, #+1]
-   \   000005A4   0x....             LDR.N    R1,??DataTable5_38
-   \   000005A6   0x7008             STRB     R0,[R1, #+0]
+   \   0000059A   0x....             LDR.N    R0,??DataTable5_41
+   \   0000059C   0x7840             LDRB     R0,[R0, #+1]
+   \   0000059E   0x....             LDR.N    R1,??DataTable5_38
+   \   000005A0   0x7008             STRB     R0,[R1, #+0]
     618          
     619                  /* Parse u8LastState to update LED status */
     620                  switch (u8LastState)
-   \   000005A8   0x....             LDR.N    R0,??DataTable5_38
-   \   000005AA   0x7800             LDRB     R0,[R0, #+0]
-   \   000005AC   0x2800             CMP      R0,#+0
-   \   000005AE   0xD006             BEQ.N    ??UserAppSM_Idle_34
-   \   000005B0   0x2801             CMP      R0,#+1
-   \   000005B2   0xD02D             BEQ.N    ??UserAppSM_Idle_35
-   \   000005B4   0x2802             CMP      R0,#+2
-   \   000005B6   0xD01C             BEQ.N    ??UserAppSM_Idle_36
-   \   000005B8   0x2808             CMP      R0,#+8
-   \   000005BA   0xD022             BEQ.N    ??UserAppSM_Idle_37
-   \   000005BC   0xE02C             B.N      ??UserAppSM_Idle_38
+   \   000005A2   0x....             LDR.N    R0,??DataTable5_38
+   \   000005A4   0x7800             LDRB     R0,[R0, #+0]
+   \   000005A6   0x2800             CMP      R0,#+0
+   \   000005A8   0xD006             BEQ.N    ??UserAppSM_Idle_34
+   \   000005AA   0x2801             CMP      R0,#+1
+   \   000005AC   0xD02D             BEQ.N    ??UserAppSM_Idle_35
+   \   000005AE   0x2802             CMP      R0,#+2
+   \   000005B0   0xD01C             BEQ.N    ??UserAppSM_Idle_36
+   \   000005B2   0x2808             CMP      R0,#+8
+   \   000005B4   0xD022             BEQ.N    ??UserAppSM_Idle_37
+   \   000005B6   0xE02C             B.N      ??UserAppSM_Idle_38
     621                  {
     622                    /* If we are synced with a device, blue is solid */
     623                    case RESPONSE_NO_ERROR:
     624                    {
     625                      LedOff(GREEN);
    \                     ??UserAppSM_Idle_34: (+1)
-   \   000005BE   0x2004             MOVS     R0,#+4
-   \   000005C0   0x.... 0x....      BL       LedOff
+   \   000005B8   0x2004             MOVS     R0,#+4
+   \   000005BA   0x.... 0x....      BL       LedOff
     626                      LedOn(BLUE);
-   \   000005C4   0x2002             MOVS     R0,#+2
-   \   000005C6   0x.... 0x....      BL       LedOn
+   \   000005BE   0x2002             MOVS     R0,#+2
+   \   000005C0   0x.... 0x....      BL       LedOn
     627                      FlagForGame =1;
                                          ^
 Warning[Pe188]: enumerated type mixed with another type
-   \   000005CA   0x2001             MOVS     R0,#+1
-   \   000005CC   0x....             LDR.N    R1,??DataTable5_13
-   \   000005CE   0x7008             STRB     R0,[R1, #+0]
+   \   000005C4   0x2001             MOVS     R0,#+1
+   \   000005C6   0x....             LDR.N    R1,??DataTable5_13
+   \   000005C8   0x7008             STRB     R0,[R1, #+0]
     628                      if(flagsend == 0)
-   \   000005D0   0x....             LDR.N    R0,??DataTable5_36
-   \   000005D2   0x7800             LDRB     R0,[R0, #+0]
-   \   000005D4   0x2800             CMP      R0,#+0
-   \   000005D6   0xD10B             BNE.N    ??UserAppSM_Idle_39
+   \   000005CA   0x....             LDR.N    R0,??DataTable5_36
+   \   000005CC   0x7800             LDRB     R0,[R0, #+0]
+   \   000005CE   0x2800             CMP      R0,#+0
+   \   000005D0   0xD10B             BNE.N    ??UserAppSM_Idle_39
     629                      {
     630                        flagsend = 1;
                                         ^
@@ -1759,23 +1757,23 @@ Warning[Pe188]: enumerated type mixed with another type
        ^
 "C:\Users\DK\Desktop\Razor_Atmel-slave\Razor_Atmel-master\firmware_mpg_common\application\user_app.c",308  Warning[Pe177]: 
           variable "u8return" was declared but never referenced
-   \   000005D8   0x2001             MOVS     R0,#+1
-   \   000005DA   0x....             LDR.N    R1,??DataTable5_36
-   \   000005DC   0x7008             STRB     R0,[R1, #+0]
+   \   000005D2   0x2001             MOVS     R0,#+1
+   \   000005D4   0x....             LDR.N    R1,??DataTable5_36
+   \   000005D6   0x7008             STRB     R0,[R1, #+0]
     631                        u8 u8return[]= {0,35,69,103,137,171,205,239};
-   \   000005DE   0xA801             ADD      R0,SP,#+4
-   \   000005E0   0x....             LDR.N    R1,??DataTable5_42
-   \   000005E2   0xC90C             LDM      R1!,{R2,R3}
-   \   000005E4   0xC00C             STM      R0!,{R2,R3}
-   \   000005E6   0x3908             SUBS     R1,R1,#+8
-   \   000005E8   0x3808             SUBS     R0,R0,#+8
+   \   000005D8   0xA801             ADD      R0,SP,#+4
+   \   000005DA   0x....             LDR.N    R1,??DataTable5_42
+   \   000005DC   0xC90C             LDM      R1!,{R2,R3}
+   \   000005DE   0xC00C             STM      R0!,{R2,R3}
+   \   000005E0   0x3908             SUBS     R1,R1,#+8
+   \   000005E2   0x3808             SUBS     R0,R0,#+8
     632                        AntQueueBroadcastMessage(u8return);
-   \   000005EA   0xA801             ADD      R0,SP,#+4
-   \   000005EC   0x.... 0x....      BL       AntQueueBroadcastMessage
+   \   000005E4   0xA801             ADD      R0,SP,#+4
+   \   000005E6   0x.... 0x....      BL       AntQueueBroadcastMessage
     633                      }
     634                      break;
    \                     ??UserAppSM_Idle_39: (+1)
-   \   000005F0   0xE015             B.N      ??UserAppSM_Idle_31
+   \   000005EA   0xE015             B.N      ??UserAppSM_Idle_31
     635                    }
     636          
     637                    /* If we are paired but missing messages, blue blinks */
@@ -1783,14 +1781,14 @@ Warning[Pe188]: enumerated type mixed with another type
     639                    {
     640                      LedOff(GREEN);
    \                     ??UserAppSM_Idle_36: (+1)
-   \   000005F2   0x2004             MOVS     R0,#+4
-   \   000005F4   0x.... 0x....      BL       LedOff
+   \   000005EC   0x2004             MOVS     R0,#+4
+   \   000005EE   0x.... 0x....      BL       LedOff
     641                      LedBlink(BLUE, LED_2HZ);
-   \   000005F8   0x21FA             MOVS     R1,#+250
-   \   000005FA   0x2002             MOVS     R0,#+2
-   \   000005FC   0x.... 0x....      BL       LedBlink
+   \   000005F2   0x21FA             MOVS     R1,#+250
+   \   000005F4   0x2002             MOVS     R0,#+2
+   \   000005F6   0x.... 0x....      BL       LedBlink
     642                      break;
-   \   00000600   0xE00D             B.N      ??UserAppSM_Idle_31
+   \   000005FA   0xE00D             B.N      ??UserAppSM_Idle_31
     643                    }
     644          
     645                    /* If we drop to search, LED is green */
@@ -1798,13 +1796,13 @@ Warning[Pe188]: enumerated type mixed with another type
     647                    {
     648                      LedOff(BLUE);
    \                     ??UserAppSM_Idle_37: (+1)
-   \   00000602   0x2002             MOVS     R0,#+2
-   \   00000604   0x.... 0x....      BL       LedOff
+   \   000005FC   0x2002             MOVS     R0,#+2
+   \   000005FE   0x.... 0x....      BL       LedOff
     649                      LedOn(GREEN);
-   \   00000608   0x2004             MOVS     R0,#+4
-   \   0000060A   0x.... 0x....      BL       LedOn
+   \   00000602   0x2004             MOVS     R0,#+4
+   \   00000604   0x.... 0x....      BL       LedOn
     650                      break;
-   \   0000060E   0xE006             B.N      ??UserAppSM_Idle_31
+   \   00000608   0xE006             B.N      ??UserAppSM_Idle_31
     651                    }
     652          
     653                    /* If the search times out, the channel should automatically close */
@@ -1812,18 +1810,18 @@ Warning[Pe188]: enumerated type mixed with another type
     655                    {
     656                      DebugPrintf("Search timeout\r\n");
    \                     ??UserAppSM_Idle_35: (+1)
-   \   00000610   0x....             LDR.N    R0,??DataTable5_43
-   \   00000612   0x.... 0x....      BL       DebugPrintf
+   \   0000060A   0x....             LDR.N    R0,??DataTable5_43
+   \   0000060C   0x.... 0x....      BL       DebugPrintf
     657                      break;
-   \   00000616   0xE002             B.N      ??UserAppSM_Idle_31
+   \   00000610   0xE002             B.N      ??UserAppSM_Idle_31
     658                    }
     659          
     660                    default:
     661                    {
     662                      DebugPrintf("Unexpected Event\r\n");
    \                     ??UserAppSM_Idle_38: (+1)
-   \   00000618   0x....             LDR.N    R0,??DataTable5_44
-   \   0000061A   0x.... 0x....      BL       DebugPrintf
+   \   00000612   0x....             LDR.N    R0,??DataTable5_44
+   \   00000614   0x.... 0x....      BL       DebugPrintf
     663                      break;
     664                    }
     665                  } /* end switch (G_au8AntApiCurrentData) */
@@ -1838,8 +1836,8 @@ Warning[Pe188]: enumerated type mixed with another type
     674             
     675          } /* end UserAppSM_Idle() */
    \                     ??UserAppSM_Idle_31: (+1)
-   \   0000061E   0xB006             ADD      SP,SP,#+24
-   \   00000620   0xBD10             POP      {R4,PC}          ;; return
+   \   00000618   0xB006             ADD      SP,SP,#+24
+   \   0000061A   0xBD10             POP      {R4,PC}          ;; return
 
    \                                 In section .data, align 4
    \                     ??u8NextMole:
@@ -2481,7 +2479,7 @@ Warning[Pe177]: function "UserAppSM_FailedInit" was declared but never
      164  UserAppInitialize
       12  UserAppRunActiveState
        2  UserAppSM_Error
-    1570  UserAppSM_Idle
+    1564  UserAppSM_Idle
        4  UserApp_StateMachine
       94  WinnerMusic
       20  au8Receive
@@ -2511,9 +2509,9 @@ Warning[Pe177]: function "UserAppSM_FailedInit" was declared but never
     34 bytes in section .bss
    603 bytes in section .data
    244 bytes in section .rodata
- 2 348 bytes in section .text
+ 2 342 bytes in section .text
  
- 2 348 bytes of CODE  memory
+ 2 342 bytes of CODE  memory
    244 bytes of CONST memory
    637 bytes of DATA  memory
 

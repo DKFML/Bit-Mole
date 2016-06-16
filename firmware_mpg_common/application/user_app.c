@@ -323,6 +323,7 @@ static void UserAppSM_Idle(void)
     {
       if(u16ClockDownForBeginning == 1000*i)
       {
+        LedOff(YELLOW);  
         LCDClearChars(LINE1_START_ADDR, 20);
           //LCDClearChars(LINE2_START_ADDR, 20);
           LCDMessage(LINE1_START_ADDR, "Clock Down:  s");
@@ -505,7 +506,7 @@ static void UserAppSM_Idle(void)
       LedOff(RED);
       LedOff(BLUE);
       /*AntCloseChannel();*/
-      LedOn(YELLOW);
+      //LedOn(YELLOW);
     }
     if(u32ClockDownForGame > 11500)
     {
@@ -593,7 +594,6 @@ static void UserAppSM_Idle(void)
     LCDClearChars(LINE2_START_ADDR, 20);
     
   }*/
-  LedOff(YELLOW);
   /* Always check for ANT messages */
   if( AntReadData() )
   {

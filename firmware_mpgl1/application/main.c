@@ -67,8 +67,7 @@ void main(void)
   SdCardInitialize();
 
   /* Application initialization */
-  UserAppInitialize();
-  AntToAnotherInitialize();
+    UserAppInitialize();
   
   /* Exit initialization */
   SystemStatusReport();
